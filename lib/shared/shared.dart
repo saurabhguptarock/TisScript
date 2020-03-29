@@ -78,6 +78,30 @@ String convertNodesToCode(Node node) {
   } else if (node.type == NodeType.Decrement) {
     double _ = double.parse(node.input['First']);
     return (_--).toString();
+  } else if (node.type == NodeType.GreaterThan) {
+    return (double.parse(node.input['First']) >
+            double.parse(node.input['Second']))
+        .toString();
+  } else if (node.type == NodeType.GreaterThanOrEqualTo) {
+    return (double.parse(node.input['First']) >=
+            double.parse(node.input['Second']))
+        .toString();
+  } else if (node.type == NodeType.LessThan) {
+    return (double.parse(node.input['First']) <
+            double.parse(node.input['Second']))
+        .toString();
+  } else if (node.type == NodeType.LessThanOrEqualTo) {
+    return (double.parse(node.input['First']) <=
+            double.parse(node.input['Second']))
+        .toString();
+  } else if (node.type == NodeType.Equality) {
+    return (double.parse(node.input['First']) ==
+            double.parse(node.input['Second']))
+        .toString();
+  } else if (node.type == NodeType.NotEqual) {
+    return (double.parse(node.input['First']) !=
+            double.parse(node.input['Second']))
+        .toString();
   }
   return '';
 }

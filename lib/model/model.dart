@@ -173,15 +173,17 @@ enum NodeCategory {
 }
 
 enum NodeType {
+  // * One Input One Output
+  Not,
+  Increment,
+  Decrement,
+  // * Two Input Two Output
   Add,
   Subtract,
   Multiply,
   DivideFull,
   DivideQuestion,
   DivideRemainder,
-  Not,
-  Increment,
-  Decrement,
   GreaterThan,
   GreaterThanOrEqualTo,
   LessThan,
