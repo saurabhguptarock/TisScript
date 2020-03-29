@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tis_script/model/model.dart';
+import 'package:tis_script/shared/nodes.dart';
 import 'shared/shared.dart';
 
 void main() {
@@ -30,7 +31,6 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Color> _hovercolor = List.generate(100, (index) => Colors.transparent);
   bool _showNodeMenu = false;
   List<Widget> _nodes = [];
-  List<Offset> offset = List.generate(100, (index) => Offset.zero);
 
   @override
   Widget build(BuildContext context) {
@@ -63,22 +63,19 @@ class _MyHomePageState extends State<MyHomePage> {
             _showNodeMenu = false;
           });
       },
+      onDoubleTap: () {},
       onPanUpdate: (details) {
-        setState(() {
-          offset[_nodes.length - 1] = Offset(
-              offset[_nodes.length - 1].dx + details.delta.dx,
-              offset[_nodes.length - 1].dy + details.delta.dy);
-        });
+        // setState(() {
+        //   offset[_nodes.length - 1] = Offset(
+        //       offset[_nodes.length - 1].dx + details.delta.dx,
+        //       offset[_nodes.length - 1].dy + details.delta.dy);
+        // });
       },
       child: Scaffold(
         backgroundColor: Colors.grey[850],
         body: Stack(
           children: <Widget>[
-            for (var i = 0; i < _nodes.length; i++)
-              Node(name: 'asd').toWidget(
-                  offsetX: offset[i].dx,
-                  offsetY: offset[i].dy,
-                  context: context),
+            ..._nodes,
             if (_showNodeMenu)
               Positioned(
                 left: left,
@@ -135,9 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             onTap: () {
                               setState(() {
                                 _showNodeMenu = !_showNodeMenu;
-                                offset[_nodes.length] = Offset(left, top);
                               });
-                              _nodes.add(Container());
+                              _nodes.add(
+                                  Add().toWidget(offsetX: left, offsetY: top));
                               _hovercolor[i] = Colors.transparent;
                             },
                             child: MouseRegion(

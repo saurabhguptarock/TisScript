@@ -9,54 +9,79 @@ class Node {
   final int height;
   final int width;
   final Color titleColor;
-  final List<String> inputNames;
-  final List<String> outputNames;
+  final Map<String, String> input;
+  final Map<String, String> output;
 
-  Node(
-      {this.name,
-      this.type,
-      this.noOfInputs,
-      this.noOfOutputs,
-      this.height,
-      this.width,
-      this.titleColor,
-      this.inputNames,
-      this.outputNames});
+  Node({
+    this.name,
+    this.type,
+    this.noOfInputs,
+    this.noOfOutputs,
+    this.height,
+    this.width,
+    this.titleColor,
+    this.input,
+    this.output,
+  });
 
-  Widget toWidget({double offsetX, double offsetY, BuildContext context}) {
+  Widget toWidget({double offsetX, double offsetY}) {
     return Positioned(
       left: offsetX,
       top: offsetY,
-      child: Container(
-        height: 180,
-        width: 150,
-        decoration: BoxDecoration(
-          color: Color(0xff403F40),
+      child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            color: Colors.white,
-            width: 0.4,
-          ),
         ),
-        child: Stack(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.orange,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(5),
-                  topRight: Radius.circular(5),
+        child: Container(
+          height: 180,
+          width: 150,
+          decoration: BoxDecoration(
+            color: Color(0xff403F40),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(5),
+                    topRight: Radius.circular(5),
+                  ),
                 ),
-              ),
-              width: MediaQuery.of(context).size.width,
-              height: 20,
-              child: Text(this.name),
-            ).showDragOnHover,
-          ],
+                width: 150,
+                height: 20,
+                child: Row(
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                        size: 15,
+                      ),
+                    ),
+                    Text(this.name),
+                  ],
+                ),
+              ).showDragOnHover,
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class NodeType {}
+enum NodeType {
+  Math,
+  String,
+}
+
+class Output {
+  final bool hasError;
+  final String output;
+
+  Output({this.hasError, this.output});
+}
