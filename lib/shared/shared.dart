@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:html';
+import 'dart:html' as html;
 import 'package:tis_script/model/model.dart';
-import 'package:tis_script/nodes.dart';
 
 extension HoverExtension on Widget {
-  static final container = window.document.getElementById('container');
+  static final container = html.window.document.getElementById('container');
 
   Widget get showPointerOnHover {
     return MouseRegion(
