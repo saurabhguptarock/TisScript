@@ -21,7 +21,10 @@ class Add extends Node {
   Map<String, String> get output => Map.fromEntries([MapEntry('Output', '')]);
 
   @override
-  NodeType get type => NodeType.Math;
+  NodeCategory get category => NodeCategory.Math;
+
+  @override
+  NodeType get type => NodeType.Add;
 
   @override
   Color get titleColor => Colors.green;

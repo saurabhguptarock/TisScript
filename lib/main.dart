@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:tis_script/nodes.dart';
 import 'shared/shared.dart';
@@ -9,12 +10,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tis Script',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BotToastInit(
+      child: MaterialApp(
+        title: 'Tis Script',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(),
+        navigatorObservers: [BotToastNavigatorObserver()],
       ),
-      home: MyHomePage(),
     );
   }
 }
@@ -27,7 +31,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   double top = 0;
   double left = 0;
-  List<Color> _hovercolor = List.generate(100, (index) => Colors.transparent);
+  List<Color> _hovercolor =
+      List.generate(availableNodes.length, (index) => Colors.transparent);
   bool _showNodeMenu = false;
   List<Widget> _nodes = [];
 
@@ -126,14 +131,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       SizedBox(
                         height: 252,
                         child: ListView.builder(
-                          itemCount: 100,
+                          itemCount: availableNodes.length,
                           itemBuilder: (ctx, i) => InkWell(
                             onTap: () {
                               setState(() {
                                 _showNodeMenu = !_showNodeMenu;
                               });
-                              _nodes.add(
-                                  Add().toWidget(offsetX: left, offsetY: top));
+                              _nodes.add(availableNodes[i]
+                                  .toWidget(offsetX: left, offsetY: top));
                               _hovercolor[i] = Colors.transparent;
                             },
                             child: MouseRegion(
@@ -151,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 color: _hovercolor[i],
                                 width: MediaQuery.of(context).size.width,
                                 child: Text(
-                                  'data',
+                                  availableNodes[i].name,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
