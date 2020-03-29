@@ -382,7 +382,7 @@ class GreaterThanOrEqualTo extends Node {
   double get height => 130;
 
   @override
-  double get width => 150;
+  double get width => 220;
 
   @override
   Map<String, String> get output => Map.fromEntries([MapEntry('Output', '')]);
@@ -452,7 +452,7 @@ class LessThanOrEqualTo extends Node {
   double get height => 130;
 
   @override
-  double get width => 150;
+  double get width => 200;
 
   @override
   Map<String, String> get output => Map.fromEntries([MapEntry('Output', '')]);
