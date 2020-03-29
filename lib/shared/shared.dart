@@ -63,9 +63,8 @@ String convertNodesToCode(Node node) {
             double.parse(node.input['Second']))
         .toString();
   } else if (node.type == NodeType.DivideQuestion) {
-    return (double.parse(node.input['First']) /
+    return (double.parse(node.input['First']) ~/
             double.parse(node.input['Second']))
-        .round()
         .toString();
   } else if (node.type == NodeType.DivideRemainder) {
     return (double.parse(node.input['First']) %
@@ -73,10 +72,12 @@ String convertNodesToCode(Node node) {
         .toString();
   } else if (node.type == NodeType.Not) {
     return (node.input['First'].toLowerCase() != 'true').toString();
+  } else if (node.type == NodeType.Increment) {
+    double _ = double.parse(node.input['First']);
+    return (_++).toString();
+  } else if (node.type == NodeType.Decrement) {
+    double _ = double.parse(node.input['First']);
+    return (_--).toString();
   }
   return '';
 }
-
-List<Node> availableNodes = [
-  Add(),
-];

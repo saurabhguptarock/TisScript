@@ -19,7 +19,7 @@ class Node {
     return Positioned(
       left: offsetX,
       top: offsetY,
-      child: InkWell(
+      child: GestureDetector(
         onDoubleTap: () {
           Output output = evaluateNode(this);
           BotToast.showText(text: output.output);
@@ -168,6 +168,7 @@ class Node {
 
 enum NodeCategory {
   Math,
+  Bool,
   String,
 }
 
@@ -179,6 +180,14 @@ enum NodeType {
   DivideQuestion,
   DivideRemainder,
   Not,
+  Increment,
+  Decrement,
+  GreaterThan,
+  GreaterThanOrEqualTo,
+  LessThan,
+  LessThanOrEqualTo,
+  Equality,
+  NotEqual,
   None,
 }
 
