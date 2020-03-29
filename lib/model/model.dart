@@ -2,27 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:tis_script/shared/shared.dart';
 
 class Node {
-  final String name;
-  final NodeType type;
-  final int noOfInputs;
-  final int noOfOutputs;
-  final int height;
-  final int width;
-  final Color titleColor;
-  final Map<String, String> input;
-  final Map<String, String> output;
-
-  Node({
-    this.name,
-    this.type,
-    this.noOfInputs,
-    this.noOfOutputs,
-    this.height,
-    this.width,
-    this.titleColor,
-    this.input,
-    this.output,
-  });
+  final String name = 'Tis Script';
+  final NodeType type = NodeType.String;
+  final int noOfInputs = 0;
+  final int noOfOutputs = 0;
+  final double height = 100;
+  final double width = 150;
+  final Color titleColor = Colors.orange;
+  final Map<String, String> input = {};
+  final Map<String, String> output = {};
+  final bool isContracted = false;
 
   Widget toWidget({double offsetX, double offsetY}) {
     return Positioned(
@@ -30,12 +19,13 @@ class Node {
       top: offsetY,
       child: Card(
         elevation: 3,
+        color: Color(0xff403F40),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
         child: Container(
-          height: 180,
-          width: 150,
+          height: height,
+          width: width,
           decoration: BoxDecoration(
             color: Color(0xff403F40),
             borderRadius: BorderRadius.circular(5),
@@ -44,28 +34,68 @@ class Node {
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.orange,
+                  color: titleColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(5),
                     topRight: Radius.circular(5),
                   ),
                 ),
-                width: 150,
+                width: width,
                 height: 20,
                 child: Row(
                   children: <Widget>[
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                        size: 15,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5, right: 10),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Icon(
+                          isContracted
+                              ? Icons.arrow_drop_down
+                              : Icons.arrow_drop_up,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                    Text(this.name),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 3),
+                      child: Text(
+                        this.name,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                   ],
                 ),
               ).showDragOnHover,
+              for (var i = 1; i <= input.length; i++) ...[
+                Positioned(
+                  left: 5,
+                  top: 40.0 * i,
+                  child: SizedBox(
+                    height: 20,
+                    width: width * .7,
+                    child: TextField(
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      autocorrect: true,
+                      cursorColor: Colors.white,
+                      decoration: InputDecoration.collapsed(
+                          border: InputBorder.none,
+                          hintStyle:
+                              TextStyle(fontSize: 12, color: Colors.white),
+                          hintText: '0'),
+                      onChanged: (s) {},
+                      enableInteractiveSelection: true,
+                      minLines: 1,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tis_script/model/model.dart';
-import 'package:tis_script/shared/nodes.dart';
+import 'package:tis_script/nodes.dart';
 import 'shared/shared.dart';
 
 void main() {
@@ -105,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               autofocus: true,
                               keyboardType: TextInputType.text,
                               autocorrect: true,
-                              cursorColor: Color(0xff00887A),
+                              cursorColor: Colors.white,
                               decoration: InputDecoration.collapsed(
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(

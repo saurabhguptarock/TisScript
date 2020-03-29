@@ -12,10 +12,10 @@ class Add extends Node {
   int get noOfOutputs => 1;
 
   @override
-  int get height => super.height;
+  double get height => 130;
 
   @override
-  int get width => super.width;
+  double get width => 150;
 
   @override
   Map<String, String> get output => Map.fromEntries([MapEntry('Output', '')]);
@@ -31,9 +31,4 @@ class Add extends Node {
         MapEntry('First', ''),
         MapEntry('Second', ''),
       ]);
-
-  @override
-  Widget toWidget({double offsetX, double offsetY}) {
-    return super.toWidget(offsetX: offsetX, offsetY: offsetY);
-  }
 }
