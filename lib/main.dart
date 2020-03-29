@@ -30,25 +30,55 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Color> _hovercolor = List.generate(100, (index) => Colors.transparent);
   bool _showNodeMenu = false;
   List<Widget> _nodes = [];
+  List<Offset> offset = List.generate(100, (index) => Offset.zero);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onSecondaryTapDown: (details) {
-        // if (left - details.globalPosition.dx < 180 &&
-        //     !_showNodeMenu &&
-        //     top - details.globalPosition.dy < 300)
+        if (!_showNodeMenu) {
+          setState(() {
+            top = details.globalPosition.dy;
+            left = details.globalPosition.dx;
+            _showNodeMenu = !_showNodeMenu;
+          });
+        } else if (_showNodeMenu) {
+          if (!((details.globalPosition.dx - left) < 180 &&
+              (details.globalPosition.dx - left) > 0 &&
+              (details.globalPosition.dy - top) < 300 &&
+              (details.globalPosition.dy - top) > 0)) {
+            setState(() {
+              top = details.globalPosition.dy;
+              left = details.globalPosition.dx;
+            });
+          }
+        }
+      },
+      onTapDown: (details) {
+        if (!((details.globalPosition.dx - left) < 180 &&
+            (details.globalPosition.dx - left) > 0 &&
+            (details.globalPosition.dy - top) < 300 &&
+            (details.globalPosition.dy - top) > 0))
+          setState(() {
+            _showNodeMenu = false;
+          });
+      },
+      onPanUpdate: (details) {
         setState(() {
-          top = details.globalPosition.dy;
-          left = details.globalPosition.dx;
-          _showNodeMenu = !_showNodeMenu;
+          offset[_nodes.length - 1] = Offset(
+              offset[_nodes.length - 1].dx + details.delta.dx,
+              offset[_nodes.length - 1].dy + details.delta.dy);
         });
       },
       child: Scaffold(
         backgroundColor: Colors.grey[850],
         body: Stack(
           children: <Widget>[
-            ..._nodes,
+            for (var i = 0; i < _nodes.length; i++)
+              Node(name: 'asd').toWidget(
+                  offsetX: offset[i].dx,
+                  offsetY: offset[i].dy,
+                  context: context),
             if (_showNodeMenu)
               Positioned(
                 left: left,
@@ -105,42 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             onTap: () {
                               setState(() {
                                 _showNodeMenu = !_showNodeMenu;
+                                offset[_nodes.length] = Offset(left, top);
                               });
-                              _nodes.add(
-                                Positioned(
-                                  left: left,
-                                  top: top,
-                                  child: Container(
-                                    height: 180,
-                                    width: 150,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xff403F40),
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 0.4,
-                                      ),
-                                    ),
-                                    child: Stack(
-                                      children: <Widget>[
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.orange,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(5),
-                                              topRight: Radius.circular(5),
-                                            ),
-                                          ),
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 20,
-                                          child: Text('data'),
-                                        ).showDragOnHover,
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
+                              _nodes.add(Container());
                               _hovercolor[i] = Colors.transparent;
                             },
                             child: MouseRegion(
