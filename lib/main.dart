@@ -126,19 +126,17 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.grey[850],
         body: Stack(
           children: <Widget>[
-            // TODO: Sugest better ways to show dotted line on top of nodes
-            if (_initialOffset == null && _finalOffset == null)
-              ..._nodes,
-            if (_initialOffset != null && _finalOffset != null)
-              CustomPaint(
-                foregroundPainter: DottedLinePainter(
-                  initialPosition: _initialOffset,
-                  finalPosition: _finalOffset,
-                ),
-                child: Stack(
-                  children: <Widget>[..._nodes],
-                ),
+            CustomPaint(
+              foregroundPainter: _initialOffset != null && _finalOffset != null
+                  ? DottedLinePainter(
+                      initialPosition: _initialOffset,
+                      finalPosition: _finalOffset,
+                    )
+                  : null,
+              child: Stack(
+                children: <Widget>[..._nodes],
               ),
+            ),
             if (_showNodeMenu)
               Positioned(
                 left: left,

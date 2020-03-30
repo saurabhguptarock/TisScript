@@ -23,7 +23,33 @@ class Node {
       child: GestureDetector(
         onDoubleTap: () {
           Output output = evaluateNode(this);
-          BotToast.showText(text: output.output);
+          if (!output.hasError)
+            BotToast.showAttachedWidget(
+                attachedBuilder: (_) => Card(
+                      color: Color(0xff1E1F1C),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(3)),
+                      child: Container(
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          color: Color(0xff1E1F1C),
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                        child: Center(
+                          child: Text(
+                            output.output,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                duration: Duration(seconds: 5),
+                target: Offset(MediaQuery.of(context).size.width - 100, 10));
         },
         child: Card(
           elevation: 3,
