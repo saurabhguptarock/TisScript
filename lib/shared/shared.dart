@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:html' as html;
 import 'package:tis_script/model/model.dart';
+import 'package:tis_script/nodes.dart';
 
 extension HoverExtension on Widget {
   static final container = html.window.document.getElementById('container');

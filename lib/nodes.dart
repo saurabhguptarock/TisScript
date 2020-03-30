@@ -1,6 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:tis_script/model/model.dart';
 
+enum NodeCategory {
+  Math,
+  Bool,
+  String,
+}
+
+enum NodeType {
+  // * One Input One Output
+  Not,
+  Increment,
+  Decrement,
+  // * Two Input Two Output
+  Add,
+  Subtract,
+  Multiply,
+  DivideFull,
+  DivideQuestion,
+  DivideRemainder,
+  GreaterThan,
+  GreaterThanOrEqualTo,
+  LessThan,
+  LessThanOrEqualTo,
+  Equality,
+  NotEqual,
+  None,
+}
+
 List<Node> availableNodes = [
   // * One Input One Output
   Not(),

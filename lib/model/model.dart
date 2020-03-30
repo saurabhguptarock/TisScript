@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:tis_script/shared/shared.dart';
+import 'package:tis_script/nodes.dart';
 
 class Node {
   final String name = 'Tis Script';
@@ -164,33 +165,6 @@ class Node {
       ),
     );
   }
-}
-
-enum NodeCategory {
-  Math,
-  Bool,
-  String,
-}
-
-enum NodeType {
-  // * One Input One Output
-  Not,
-  Increment,
-  Decrement,
-  // * Two Input Two Output
-  Add,
-  Subtract,
-  Multiply,
-  DivideFull,
-  DivideQuestion,
-  DivideRemainder,
-  GreaterThan,
-  GreaterThanOrEqualTo,
-  LessThan,
-  LessThanOrEqualTo,
-  Equality,
-  NotEqual,
-  None,
 }
 
 class Output {
