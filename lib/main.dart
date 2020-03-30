@@ -1,7 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:tis_script/nodes.dart';
-import 'shared/shared.dart';
 
 void main() {
   runApp(MyApp());
@@ -143,8 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     setState(() {
                                       _showNodeMenu = !_showNodeMenu;
                                     });
-                                    _nodes.add(availableNodes[i]
-                                        .toWidget(offsetX: left, offsetY: top));
+                                    _nodes.add(availableNodes[i].toWidget(
+                                        offsetX: left,
+                                        offsetY: top,
+                                        context: context));
                                     _hovercolor[i] = Colors.transparent;
                                   },
                                   child: MouseRegion(
@@ -166,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),
-                                  ).showPointerOnHover,
+                                  ),
                                 )
                               : null,
                         ),

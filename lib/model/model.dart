@@ -12,11 +12,11 @@ class Node {
   final double height = 100;
   final double width = 150;
   final Color titleColor = Colors.orange;
-  Map<String, String> input = {};
-  Map<String, String> output = {};
+  final Map<String, dynamic> input = {};
+  final Map<String, dynamic> output = {};
   final bool isContracted = false;
 
-  Widget toWidget({double offsetX, double offsetY}) {
+  Widget toWidget({double offsetX, double offsetY, BuildContext context}) {
     return Positioned(
       left: offsetX,
       top: offsetY,
@@ -73,7 +73,7 @@ class Node {
                       ),
                     ],
                   ),
-                ).showDragOnHover,
+                ),
                 for (var i = 1; i <= input.length; i++) ...[
                   Positioned(
                     left: 15,
@@ -91,7 +91,10 @@ class Node {
                                 TextStyle(fontSize: 12, color: Colors.white),
                             hintText: '0'),
                         onChanged: (s) {
-                          input.update('First', (value) => value = s);
+                          if (i == 1)
+                            input.update('First', (value) => value = s);
+                          else if (i == 2)
+                            input.update('Second', (value) => value = s);
                         },
                         minLines: 1,
                         maxLines: 1,
@@ -131,9 +134,6 @@ class Node {
                             hintStyle:
                                 TextStyle(fontSize: 12, color: Colors.white),
                             hintText: '0'),
-                        onChanged: (s) {
-                          input.update('Second', (value) => value = s);
-                        },
                         enableInteractiveSelection: true,
                         minLines: 1,
                         maxLines: 1,
