@@ -261,7 +261,7 @@ class SubtractDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 150;
+  double get width => 180;
 
   @override
   Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
@@ -331,7 +331,7 @@ class MultiplyDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 150;
+  double get width => 180;
 
   @override
   Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
@@ -401,7 +401,7 @@ class DivideFullDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 150;
+  double get width => 180;
 
   @override
   Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
@@ -471,7 +471,7 @@ class DivideQuestionDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 180;
+  double get width => 220;
 
   @override
   Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
@@ -506,7 +506,7 @@ class DivideRemainderInt extends Node {
   double get height => 130;
 
   @override
-  double get width => 180;
+  double get width => 200;
 
   @override
   Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
@@ -541,7 +541,7 @@ class DivideRemainderDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 180;
+  double get width => 220;
 
   @override
   Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
@@ -644,7 +644,7 @@ class IncrementDouble extends Node {
   double get height => 90;
 
   @override
-  double get width => 150;
+  double get width => 180;
 
   @override
   Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
@@ -678,7 +678,7 @@ class DecrementInt extends Node {
   double get height => 90;
 
   @override
-  double get width => 150;
+  double get width => 180;
 
   @override
   Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
@@ -746,7 +746,7 @@ class GreaterThanInt extends Node {
   double get height => 130;
 
   @override
-  double get width => 150;
+  double get width => 180;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
@@ -781,7 +781,7 @@ class GreaterThanDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 150;
+  double get width => 200;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
@@ -851,7 +851,7 @@ class GreaterThanOrEqualToDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 250;
+  double get width => 270;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
@@ -921,7 +921,7 @@ class LessThanDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 150;
+  double get width => 180;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
@@ -956,7 +956,7 @@ class LessThanOrEqualToInt extends Node {
   double get height => 130;
 
   @override
-  double get width => 200;
+  double get width => 250;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
@@ -991,7 +991,7 @@ class LessThanOrEqualToDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 200;
+  double get width => 250;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
@@ -1201,7 +1201,7 @@ class NotEqualDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 150;
+  double get width => 180;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
@@ -1236,7 +1236,7 @@ class NotEqualString extends Node {
   double get height => 130;
 
   @override
-  double get width => 150;
+  double get width => 170;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
@@ -1306,7 +1306,7 @@ class RandomIntInRange extends Node {
   double get height => 130;
 
   @override
-  double get width => 180;
+  double get width => 220;
 
   @override
   Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
@@ -1341,7 +1341,7 @@ class RandomDoubleInRange extends Node {
   double get height => 130;
 
   @override
-  double get width => 180;
+  double get width => 250;
 
   @override
   Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
@@ -1373,10 +1373,10 @@ class RandomBool extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
+  double get height => 90;
 
   @override
-  double get width => 180;
+  double get width => 150;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
