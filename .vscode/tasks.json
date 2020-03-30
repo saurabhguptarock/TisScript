@@ -6,7 +6,7 @@
     {
       "label": "Building for Web",
       "type": "shell",
-      "command": "flutter build web",
+      "command": "npm run deploy",
       "group": {
         "kind": "build",
         "isDefault": true
