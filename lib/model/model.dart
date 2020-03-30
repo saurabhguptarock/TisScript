@@ -12,9 +12,25 @@ class Node {
   final double height = 100;
   final double width = 150;
   final Color titleColor = Colors.orange;
-  final Map<String, dynamic> input = {};
-  final Map<String, dynamic> output = {};
   final bool isContracted = false;
+  Map<String, dynamic> inputLocal = {};
+  Map<String, dynamic> outputLocal = {};
+
+  set input(Map<String, dynamic> inp) {
+    inputLocal = inp;
+  }
+
+  Map<String, dynamic> get input {
+    return inputLocal;
+  }
+
+  set output(dynamic out) {
+    outputLocal = Map.fromEntries([MapEntry('Output', out)]);
+  }
+
+  Map<String, dynamic> get output {
+    return outputLocal;
+  }
 
   Widget toWidget({double offsetX, double offsetY, BuildContext context}) {
     return Positioned(
@@ -100,7 +116,7 @@ class Node {
                     ],
                   ),
                 ),
-                for (var i = 1; i <= input.length; i++) ...[
+                for (var i = 1; i <= noOfInputs; i++) ...[
                   Positioned(
                     left: 15,
                     top: 40.0 * i,
@@ -117,10 +133,29 @@ class Node {
                                 TextStyle(fontSize: 12, color: Colors.white),
                             hintText: '0'),
                         onChanged: (s) {
-                          if (i == 1)
-                            input.update('First', (value) => value = s);
-                          else if (i == 2)
-                            input.update('Second', (value) => value = s);
+                          if (i == 1) {
+                            if (input['Second'] == null)
+                              input = Map.fromEntries([
+                                MapEntry('First', s),
+                                MapEntry('Second', input['Second'])
+                              ]);
+                            else if (input['Second'] != null)
+                              input = Map.fromEntries([
+                                MapEntry('First', s),
+                                MapEntry('Second', input['Second'])
+                              ]);
+                          } else if (i == 2) {
+                            if (input['First'] == null)
+                              input = Map.fromEntries([
+                                MapEntry('First', input['First']),
+                                MapEntry('Second', s)
+                              ]);
+                            else if (input['First'] != null)
+                              input = Map.fromEntries([
+                                MapEntry('First', input['First']),
+                                MapEntry('Second', s)
+                              ]);
+                          }
                         },
                         minLines: 1,
                         maxLines: 1,
@@ -145,7 +180,7 @@ class Node {
                     ),
                   ),
                 ],
-                for (var i = 1; i <= output.length; i++) ...[
+                for (var i = 1; i <= noOfOutputs; i++) ...[
                   Positioned(
                     right: 15,
                     top: 20.0 * i,

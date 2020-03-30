@@ -26,7 +26,8 @@ dynamic convertNodesToCode(Node node) {
     } else if (node.type == NodeType.NotBool) {
       return !node.input['First'];
     } else if (node.type == NodeType.RandomBool) {
-      return Random().nextBool();
+      node.output = Random().nextBool();
+      return node.output['Output'];
     }
   }
   // ! Input int
@@ -110,7 +111,7 @@ dynamic convertNodesToCode(Node node) {
   // ! Input Color
   else if (node.category == NodeCategory.Color) {
     if (node.type == NodeType.ColorPicker) {
-      return node.input['First'];
+      return node.output['Output'];
     }
   }
 }

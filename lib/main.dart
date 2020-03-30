@@ -105,6 +105,13 @@ class _MyHomePageState extends State<MyHomePage> {
           });
       },
       onPanStart: (details) {
+        if (!((details.globalPosition.dx - left) < 220 &&
+            (details.globalPosition.dx - left) > 0 &&
+            (details.globalPosition.dy - top) < 350 &&
+            (details.globalPosition.dy - top) > 0))
+          setState(() {
+            _showNodeMenu = false;
+          });
         _initialOffset = details.globalPosition;
         setState(() {});
       },
@@ -234,6 +241,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: Text(
+                'TIS SCRIPT',
+                style: TextStyle(color: Colors.white, fontSize: 55),
+              ),
+            )
           ],
         ),
       ),

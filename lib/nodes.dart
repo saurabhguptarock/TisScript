@@ -1,6 +1,8 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:tis_script/model/model.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart' as color;
+import 'package:tis_script/shared/shared.dart';
 
 Map<NodeCategory, Color> nodeColor = {
   NodeCategory.int: Color(0xff1DDCA9),
@@ -124,9 +126,6 @@ class AddInt extends Node {
   double get width => 150;
 
   @override
-  Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -134,12 +133,6 @@ class AddInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class AddDouble extends Node {
@@ -159,9 +152,6 @@ class AddDouble extends Node {
   double get width => 150;
 
   @override
-  Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -169,12 +159,6 @@ class AddDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class AddString extends Node {
@@ -194,9 +178,6 @@ class AddString extends Node {
   double get width => 150;
 
   @override
-  Map<String, String> get output => Map.fromEntries([MapEntry('Output', '')]);
-
-  @override
   NodeCategory get category => NodeCategory.String;
 
   @override
@@ -204,12 +185,6 @@ class AddString extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.String];
-
-  @override
-  Map<String, String> get input => Map.fromEntries([
-        MapEntry('First', ''),
-        MapEntry('Second', ''),
-      ]);
 }
 
 class SubtractInt extends Node {
@@ -229,9 +204,6 @@ class SubtractInt extends Node {
   double get width => 150;
 
   @override
-  Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -239,12 +211,6 @@ class SubtractInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class SubtractDouble extends Node {
@@ -264,9 +230,6 @@ class SubtractDouble extends Node {
   double get width => 180;
 
   @override
-  Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -274,12 +237,6 @@ class SubtractDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class MultiplyInt extends Node {
@@ -299,9 +256,6 @@ class MultiplyInt extends Node {
   double get width => 150;
 
   @override
-  Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -309,12 +263,6 @@ class MultiplyInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class MultiplyDouble extends Node {
@@ -334,9 +282,6 @@ class MultiplyDouble extends Node {
   double get width => 180;
 
   @override
-  Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -344,12 +289,6 @@ class MultiplyDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class DivideFullInt extends Node {
@@ -369,9 +308,6 @@ class DivideFullInt extends Node {
   double get width => 150;
 
   @override
-  Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -379,12 +315,6 @@ class DivideFullInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class DivideFullDouble extends Node {
@@ -404,9 +334,6 @@ class DivideFullDouble extends Node {
   double get width => 180;
 
   @override
-  Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -414,12 +341,6 @@ class DivideFullDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class DivideQuestionInt extends Node {
@@ -439,9 +360,6 @@ class DivideQuestionInt extends Node {
   double get width => 180;
 
   @override
-  Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -449,12 +367,6 @@ class DivideQuestionInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class DivideQuestionDouble extends Node {
@@ -474,9 +386,6 @@ class DivideQuestionDouble extends Node {
   double get width => 220;
 
   @override
-  Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -484,12 +393,6 @@ class DivideQuestionDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class DivideRemainderInt extends Node {
@@ -509,9 +412,6 @@ class DivideRemainderInt extends Node {
   double get width => 200;
 
   @override
-  Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -519,12 +419,6 @@ class DivideRemainderInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class DivideRemainderDouble extends Node {
@@ -544,9 +438,6 @@ class DivideRemainderDouble extends Node {
   double get width => 220;
 
   @override
-  Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -554,12 +445,6 @@ class DivideRemainderDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class NotBool extends Node {
@@ -579,9 +464,6 @@ class NotBool extends Node {
   double get width => 150;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.bool;
 
   @override
@@ -589,11 +471,6 @@ class NotBool extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.bool];
-
-  @override
-  Map<String, bool> get input => Map.fromEntries([
-        MapEntry('First', true),
-      ]);
 }
 
 class IncrementInt extends Node {
@@ -613,9 +490,6 @@ class IncrementInt extends Node {
   double get width => 150;
 
   @override
-  Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -623,11 +497,6 @@ class IncrementInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-      ]);
 }
 
 class IncrementDouble extends Node {
@@ -647,9 +516,6 @@ class IncrementDouble extends Node {
   double get width => 180;
 
   @override
-  Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -657,11 +523,6 @@ class IncrementDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-      ]);
 }
 
 class DecrementInt extends Node {
@@ -681,9 +542,6 @@ class DecrementInt extends Node {
   double get width => 180;
 
   @override
-  Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -691,11 +549,6 @@ class DecrementInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-      ]);
 }
 
 class DecrementDouble extends Node {
@@ -715,9 +568,6 @@ class DecrementDouble extends Node {
   double get width => 180;
 
   @override
-  Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -725,11 +575,6 @@ class DecrementDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-      ]);
 }
 
 class GreaterThanInt extends Node {
@@ -749,9 +594,6 @@ class GreaterThanInt extends Node {
   double get width => 180;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -759,12 +601,6 @@ class GreaterThanInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class GreaterThanDouble extends Node {
@@ -784,9 +620,6 @@ class GreaterThanDouble extends Node {
   double get width => 200;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -794,12 +627,6 @@ class GreaterThanDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class GreaterThanOrEqualToInt extends Node {
@@ -819,9 +646,6 @@ class GreaterThanOrEqualToInt extends Node {
   double get width => 250;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -829,12 +653,6 @@ class GreaterThanOrEqualToInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class GreaterThanOrEqualToDouble extends Node {
@@ -854,9 +672,6 @@ class GreaterThanOrEqualToDouble extends Node {
   double get width => 270;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -864,12 +679,6 @@ class GreaterThanOrEqualToDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class LessThanInt extends Node {
@@ -889,9 +698,6 @@ class LessThanInt extends Node {
   double get width => 150;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -899,12 +705,6 @@ class LessThanInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class LessThanDouble extends Node {
@@ -924,9 +724,6 @@ class LessThanDouble extends Node {
   double get width => 180;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -934,12 +731,6 @@ class LessThanDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class LessThanOrEqualToInt extends Node {
@@ -959,9 +750,6 @@ class LessThanOrEqualToInt extends Node {
   double get width => 250;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -969,12 +757,6 @@ class LessThanOrEqualToInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class LessThanOrEqualToDouble extends Node {
@@ -994,9 +776,6 @@ class LessThanOrEqualToDouble extends Node {
   double get width => 250;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -1004,12 +783,6 @@ class LessThanOrEqualToDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class EqualityInt extends Node {
@@ -1029,9 +802,6 @@ class EqualityInt extends Node {
   double get width => 150;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -1039,12 +809,6 @@ class EqualityInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class EqualityDouble extends Node {
@@ -1064,9 +828,6 @@ class EqualityDouble extends Node {
   double get width => 150;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -1074,12 +835,6 @@ class EqualityDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class EqualityString extends Node {
@@ -1099,9 +854,6 @@ class EqualityString extends Node {
   double get width => 150;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.String;
 
   @override
@@ -1109,12 +861,6 @@ class EqualityString extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.String];
-
-  @override
-  Map<String, String> get input => Map.fromEntries([
-        MapEntry('First', ''),
-        MapEntry('Second', ''),
-      ]);
 }
 
 class EqualityBool extends Node {
@@ -1134,9 +880,6 @@ class EqualityBool extends Node {
   double get width => 150;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.bool;
 
   @override
@@ -1144,12 +887,6 @@ class EqualityBool extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.bool];
-
-  @override
-  Map<String, bool> get input => Map.fromEntries([
-        MapEntry('First', true),
-        MapEntry('Second', false),
-      ]);
 }
 
 class NotEqualInt extends Node {
@@ -1169,9 +906,6 @@ class NotEqualInt extends Node {
   double get width => 150;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -1179,12 +913,6 @@ class NotEqualInt extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class NotEqualDouble extends Node {
@@ -1204,9 +932,6 @@ class NotEqualDouble extends Node {
   double get width => 180;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -1214,12 +939,6 @@ class NotEqualDouble extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class NotEqualString extends Node {
@@ -1239,9 +958,6 @@ class NotEqualString extends Node {
   double get width => 170;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.String;
 
   @override
@@ -1249,12 +965,6 @@ class NotEqualString extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.String];
-
-  @override
-  Map<String, String> get input => Map.fromEntries([
-        MapEntry('First', ''),
-        MapEntry('Second', ''),
-      ]);
 }
 
 class NotEqualBool extends Node {
@@ -1274,9 +984,6 @@ class NotEqualBool extends Node {
   double get width => 150;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.bool;
 
   @override
@@ -1284,12 +991,6 @@ class NotEqualBool extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.bool];
-
-  @override
-  Map<String, bool> get input => Map.fromEntries([
-        MapEntry('First', true),
-        MapEntry('Second', true),
-      ]);
 }
 
 class RandomIntInRange extends Node {
@@ -1309,9 +1010,6 @@ class RandomIntInRange extends Node {
   double get width => 220;
 
   @override
-  Map<String, int> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -1319,12 +1017,6 @@ class RandomIntInRange extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.int];
-
-  @override
-  Map<String, int> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class RandomDoubleInRange extends Node {
@@ -1344,9 +1036,6 @@ class RandomDoubleInRange extends Node {
   double get width => 250;
 
   @override
-  Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -1354,12 +1043,6 @@ class RandomDoubleInRange extends Node {
 
   @override
   Color get titleColor => nodeColor[NodeCategory.double];
-
-  @override
-  Map<String, double> get input => Map.fromEntries([
-        MapEntry('First', 0),
-        MapEntry('Second', 0),
-      ]);
 }
 
 class RandomBool extends Node {
@@ -1379,9 +1062,6 @@ class RandomBool extends Node {
   double get width => 150;
 
   @override
-  Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
-
-  @override
   NodeCategory get category => NodeCategory.bool;
 
   @override
@@ -1392,8 +1072,6 @@ class RandomBool extends Node {
 }
 
 class ColorPicker extends Node {
-  Color _color = Colors.white;
-
   @override
   String get name => 'Color Picker';
 
@@ -1410,10 +1088,6 @@ class ColorPicker extends Node {
   double get width => 150;
 
   @override
-  Map<String, Color> get output =>
-      Map.fromEntries([MapEntry('Output', Colors.white)]);
-
-  @override
   NodeCategory get category => NodeCategory.Color;
 
   @override
@@ -1428,6 +1102,36 @@ class ColorPicker extends Node {
       left: offsetX,
       top: offsetY,
       child: GestureDetector(
+        onDoubleTap: () {
+          Output output = evaluateNode(this);
+          if (!output.hasError)
+            BotToast.showAttachedWidget(
+                attachedBuilder: (_) => Card(
+                      color: Color(0xff1E1F1C),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(3)),
+                      child: Container(
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          color: Color(0xff1E1F1C),
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                        child: Center(
+                          child: Text(
+                            output.output,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                duration: Duration(seconds: 5),
+                target: Offset(MediaQuery.of(context).size.width - 100, 10));
+        },
         child: Card(
           elevation: 3,
           color: Color(0xff403F40),
@@ -1491,9 +1195,9 @@ class ColorPicker extends Node {
                             title: Text('Pick a color!'),
                             content: SingleChildScrollView(
                               child: color.ColorPicker(
-                                pickerColor: _color,
+                                pickerColor: output['Output'] ?? Colors.white,
                                 onColorChanged: (c) {
-                                  _color = c;
+                                  output = c;
                                 },
                                 showLabel: true,
                                 pickerAreaHeightPercent: 0.8,
@@ -1503,7 +1207,6 @@ class ColorPicker extends Node {
                               FlatButton(
                                 child: Text('OK'),
                                 onPressed: () {
-                                  output['Output'] = _color;
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -1513,7 +1216,7 @@ class ColorPicker extends Node {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: _color,
+                          color: output['Output'] ?? Colors.white,
                           borderRadius: BorderRadius.circular(2),
                         ),
                       ),
