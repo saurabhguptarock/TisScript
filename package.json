@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "deploy": "gh-pages -d build/web"
+    "deploy": "flutter build web && gh-pages -d build/web"
   },
   "repository": {
     "type": "git",
