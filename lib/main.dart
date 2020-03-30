@@ -47,9 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
             _showNodeMenu = !_showNodeMenu;
           });
         } else if (_showNodeMenu) {
-          if (!((details.globalPosition.dx - left) < 180 &&
+          if (!((details.globalPosition.dx - left) < 220 &&
               (details.globalPosition.dx - left) > 0 &&
-              (details.globalPosition.dy - top) < 300 &&
+              (details.globalPosition.dy - top) < 350 &&
               (details.globalPosition.dy - top) > 0)) {
             setState(() {
               top = details.globalPosition.dy;
@@ -59,9 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       },
       onTapDown: (details) {
-        if (!((details.globalPosition.dx - left) < 180 &&
+        if (!((details.globalPosition.dx - left) < 220 &&
             (details.globalPosition.dx - left) > 0 &&
-            (details.globalPosition.dy - top) < 300 &&
+            (details.globalPosition.dy - top) < 350 &&
             (details.globalPosition.dy - top) > 0))
           setState(() {
             _showNodeMenu = false;
@@ -84,8 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 left: left,
                 top: top,
                 child: Container(
-                  height: 300,
-                  width: 180,
+                  height: 350,
+                  width: 220,
                   decoration: BoxDecoration(
                     color: Color(0xff232323).withOpacity(0.9),
                     borderRadius: BorderRadius.circular(1),
@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                       SizedBox(
-                        height: 252,
+                        height: 302,
                         child: ListView.builder(
                           itemCount: availableNodes.length,
                           itemBuilder: (ctx, i) => availableNodes[i]

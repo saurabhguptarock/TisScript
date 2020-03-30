@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:tis_script/model/model.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart' as color;
 
+Map<NodeCategory, Color> nodeColor = {
+  NodeCategory.int: Color(0xff1DDCA9),
+  NodeCategory.double: Color(0xff9CF742),
+  NodeCategory.bool: Color(0xff8C0000),
+  NodeCategory.String: Color(0xffF800CF),
+  NodeCategory.Color: Color(0xff0056C7),
+};
+
 enum NodeCategory {
   int,
   double,
@@ -125,7 +133,7 @@ class AddInt extends Node {
   NodeType get type => NodeType.AddInt;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -160,7 +168,7 @@ class AddDouble extends Node {
   NodeType get type => NodeType.AddDouble;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -195,7 +203,7 @@ class AddString extends Node {
   NodeType get type => NodeType.AddString;
 
   @override
-  Color get titleColor => Colors.pink;
+  Color get titleColor => nodeColor[NodeCategory.String];
 
   @override
   Map<String, String> get input => Map.fromEntries([
@@ -230,7 +238,7 @@ class SubtractInt extends Node {
   NodeType get type => NodeType.SubtractInt;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -265,7 +273,7 @@ class SubtractDouble extends Node {
   NodeType get type => NodeType.SubtractDouble;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -300,7 +308,7 @@ class MultiplyInt extends Node {
   NodeType get type => NodeType.MultiplyInt;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -335,7 +343,7 @@ class MultiplyDouble extends Node {
   NodeType get type => NodeType.MultiplyDouble;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -370,7 +378,7 @@ class DivideFullInt extends Node {
   NodeType get type => NodeType.DivideFullInt;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -405,7 +413,7 @@ class DivideFullDouble extends Node {
   NodeType get type => NodeType.DivideFullDouble;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -440,7 +448,7 @@ class DivideQuestionInt extends Node {
   NodeType get type => NodeType.DivideQuestionInt;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -475,7 +483,7 @@ class DivideQuestionDouble extends Node {
   NodeType get type => NodeType.DivideQuestionDouble;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -510,7 +518,7 @@ class DivideRemainderInt extends Node {
   NodeType get type => NodeType.DivideRemainderInt;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -545,7 +553,7 @@ class DivideRemainderDouble extends Node {
   NodeType get type => NodeType.DivideRemainderDouble;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -580,7 +588,7 @@ class NotBool extends Node {
   NodeType get type => NodeType.NotBool;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.bool];
 
   @override
   Map<String, bool> get input => Map.fromEntries([
@@ -614,7 +622,7 @@ class IncrementInt extends Node {
   NodeType get type => NodeType.IncrementInt;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -648,7 +656,7 @@ class IncrementDouble extends Node {
   NodeType get type => NodeType.IncrementDouble;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -682,7 +690,7 @@ class DecrementInt extends Node {
   NodeType get type => NodeType.DecrementInt;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -716,7 +724,7 @@ class DecrementDouble extends Node {
   NodeType get type => NodeType.DecrementDouble;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -750,7 +758,7 @@ class GreaterThanInt extends Node {
   NodeType get type => NodeType.GreaterThanInt;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -785,7 +793,7 @@ class GreaterThanDouble extends Node {
   NodeType get type => NodeType.GreaterThanDouble;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -808,7 +816,7 @@ class GreaterThanOrEqualToInt extends Node {
   double get height => 130;
 
   @override
-  double get width => 220;
+  double get width => 250;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
@@ -820,7 +828,7 @@ class GreaterThanOrEqualToInt extends Node {
   NodeType get type => NodeType.GreaterThanOrEqualToInt;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -843,7 +851,7 @@ class GreaterThanOrEqualToDouble extends Node {
   double get height => 130;
 
   @override
-  double get width => 220;
+  double get width => 250;
 
   @override
   Map<String, bool> get output => Map.fromEntries([MapEntry('Output', false)]);
@@ -855,7 +863,7 @@ class GreaterThanOrEqualToDouble extends Node {
   NodeType get type => NodeType.GreaterThanOrEqualToDouble;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -890,7 +898,7 @@ class LessThanInt extends Node {
   NodeType get type => NodeType.LessThanInt;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -925,7 +933,7 @@ class LessThanDouble extends Node {
   NodeType get type => NodeType.LessThanDouble;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -960,7 +968,7 @@ class LessThanOrEqualToInt extends Node {
   NodeType get type => NodeType.LessThanOrEqualToInt;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -995,7 +1003,7 @@ class LessThanOrEqualToDouble extends Node {
   NodeType get type => NodeType.LessThanOrEqualToDouble;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -1030,7 +1038,7 @@ class EqualityInt extends Node {
   NodeType get type => NodeType.EqualityInt;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -1065,7 +1073,7 @@ class EqualityDouble extends Node {
   NodeType get type => NodeType.EqualityDouble;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -1100,7 +1108,7 @@ class EqualityString extends Node {
   NodeType get type => NodeType.EqualityString;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.String];
 
   @override
   Map<String, String> get input => Map.fromEntries([
@@ -1135,7 +1143,7 @@ class EqualityBool extends Node {
   NodeType get type => NodeType.EqualityBool;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.bool];
 
   @override
   Map<String, bool> get input => Map.fromEntries([
@@ -1170,7 +1178,7 @@ class NotEqualInt extends Node {
   NodeType get type => NodeType.NotEqualInt;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -1205,7 +1213,7 @@ class NotEqualDouble extends Node {
   NodeType get type => NodeType.NotEqualDouble;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -1240,7 +1248,7 @@ class NotEqualString extends Node {
   NodeType get type => NodeType.NotEqualString;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.String];
 
   @override
   Map<String, String> get input => Map.fromEntries([
@@ -1275,7 +1283,7 @@ class NotEqualBool extends Node {
   NodeType get type => NodeType.NotEqualInt;
 
   @override
-  Color get titleColor => Colors.red;
+  Color get titleColor => nodeColor[NodeCategory.bool];
 
   @override
   Map<String, bool> get input => Map.fromEntries([
@@ -1310,7 +1318,7 @@ class RandomIntInRange extends Node {
   NodeType get type => NodeType.RandomIntInRange;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.int];
 
   @override
   Map<String, int> get input => Map.fromEntries([
@@ -1345,7 +1353,7 @@ class RandomDoubleInRange extends Node {
   NodeType get type => NodeType.RandomDoubleInRange;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.double];
 
   @override
   Map<String, double> get input => Map.fromEntries([
@@ -1380,7 +1388,7 @@ class RandomBool extends Node {
   NodeType get type => NodeType.RandomBool;
 
   @override
-  Color get titleColor => Colors.green;
+  Color get titleColor => nodeColor[NodeCategory.bool];
 }
 
 class ColorPicker extends Node {
@@ -1412,7 +1420,7 @@ class ColorPicker extends Node {
   NodeType get type => NodeType.ColorPicker;
 
   @override
-  Color get titleColor => Colors.yellow;
+  Color get titleColor => nodeColor[NodeCategory.Color];
 
   @override
   Widget toWidget({double offsetX, double offsetY, BuildContext context}) {
