@@ -3,7 +3,7 @@ import 'package:tis_script/model/model.dart';
 import 'package:tis_script/nodes.dart';
 
 Output evaluateNode(Node node) {
-  String output = convertNodesToCode(node);
+  String output = convertNodesToCode(node).toString();
   return Output(hasError: false, output: output);
 }
 

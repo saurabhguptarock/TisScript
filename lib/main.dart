@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:tis_script/nodes.dart';
@@ -22,6 +24,39 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class DottedLinePainter extends CustomPainter {
+  Offset initialPosition;
+  Offset finalPosition;
+  DottedLinePainter({Offset initialPosition, Offset finalPosition}) {
+    this.initialPosition = initialPosition;
+    this.finalPosition = finalPosition;
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.grey
+      ..strokeCap = StrokeCap.butt
+      ..strokeWidth = 1;
+    canvas.drawPoints(
+        PointMode.polygon,
+        [
+          Offset(initialPosition.dx, initialPosition.dy),
+          Offset(finalPosition.dx, initialPosition.dy),
+          Offset(finalPosition.dx, finalPosition.dy),
+          Offset(initialPosition.dx, finalPosition.dy),
+          Offset(initialPosition.dx, initialPosition.dy),
+        ],
+        paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+    // throw UnimplementedError();
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -35,6 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _showNodeMenu = false;
   List<Widget> _nodes = [];
   String _searchQuery = '';
+  Offset _initialOffset;
+  Offset _finalOffset;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +104,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _showNodeMenu = false;
           });
       },
+      onPanStart: (details) {
+        _initialOffset = details.globalPosition;
+        setState(() {});
+      },
+      onPanEnd: (details) {
+        _initialOffset = null;
+        _finalOffset = null;
+        setState(() {});
+      },
       onPanUpdate: (details) {
+        _finalOffset = details.globalPosition;
+        setState(() {});
         // setState(() {
         //   offset[_nodes.length - 1] = Offset(
         //       offset[_nodes.length - 1].dx + details.delta.dx,
@@ -78,7 +126,19 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.grey[850],
         body: Stack(
           children: <Widget>[
-            ..._nodes,
+            // TODO: Sugest better ways to show dotted line on top of nodes
+            if (_initialOffset == null && _finalOffset == null)
+              ..._nodes,
+            if (_initialOffset != null && _finalOffset != null)
+              CustomPaint(
+                foregroundPainter: DottedLinePainter(
+                  initialPosition: _initialOffset,
+                  finalPosition: _finalOffset,
+                ),
+                child: Stack(
+                  children: <Widget>[..._nodes],
+                ),
+              ),
             if (_showNodeMenu)
               Positioned(
                 left: left,

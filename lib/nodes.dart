@@ -712,7 +712,7 @@ class DecrementDouble extends Node {
   double get height => 90;
 
   @override
-  double get width => 150;
+  double get width => 180;
 
   @override
   Map<String, double> get output => Map.fromEntries([MapEntry('Output', 0)]);
