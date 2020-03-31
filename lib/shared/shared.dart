@@ -63,6 +63,7 @@ Output _convertNodesToCode(Node node) {
       else
         return Output(hasError: true, output: null, outputType: null);
     } else if (node.type == NodeType.AddInt) {
+      // TODO: Return errot type and also check for input to be null
       int first = int.tryParse(node.input['First']);
       int second = int.tryParse(node.input['Second']);
       if (first != null && second != null)
@@ -392,4 +393,5 @@ Output _convertNodesToCode(Node node) {
           outputType: NodeCategory.String);
     }
   }
+  return Output(hasError: true, output: null, outputType: null);
 }

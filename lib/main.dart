@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:tis_script/nodes.dart';
@@ -21,39 +20,6 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [BotToastNavigatorObserver()],
       ),
     );
-  }
-}
-
-class DottedLinePainter extends CustomPainter {
-  Offset initialPosition;
-  Offset finalPosition;
-  DottedLinePainter({Offset initialPosition, Offset finalPosition}) {
-    this.initialPosition = initialPosition;
-    this.finalPosition = finalPosition;
-  }
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.grey
-      ..strokeCap = StrokeCap.butt
-      ..strokeWidth = 1;
-    canvas.drawPoints(
-        PointMode.polygon,
-        [
-          Offset(initialPosition.dx, initialPosition.dy),
-          Offset(finalPosition.dx, initialPosition.dy),
-          Offset(finalPosition.dx, finalPosition.dy),
-          Offset(initialPosition.dx, finalPosition.dy),
-          Offset(initialPosition.dx, initialPosition.dy),
-        ],
-        paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-    // throw UnimplementedError();
   }
 }
 
@@ -253,5 +219,37 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+}
+
+class DottedLinePainter extends CustomPainter {
+  Offset initialPosition;
+  Offset finalPosition;
+  DottedLinePainter({Offset initialPosition, Offset finalPosition}) {
+    this.initialPosition = initialPosition;
+    this.finalPosition = finalPosition;
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.grey
+      ..strokeCap = StrokeCap.butt
+      ..strokeWidth = 1;
+    canvas.drawPoints(
+        PointMode.polygon,
+        [
+          Offset(initialPosition.dx, initialPosition.dy),
+          Offset(finalPosition.dx, initialPosition.dy),
+          Offset(finalPosition.dx, finalPosition.dy),
+          Offset(initialPosition.dx, finalPosition.dy),
+          Offset(initialPosition.dx, initialPosition.dy),
+        ],
+        paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }
