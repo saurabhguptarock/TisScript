@@ -1119,7 +1119,7 @@ class ColorPicker extends Node {
                         ),
                         child: Center(
                           child: Text(
-                            output.output,
+                            '${output.output}',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,

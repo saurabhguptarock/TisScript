@@ -41,31 +41,60 @@ class Node {
           Output output = evaluateNode(this);
           if (!output.hasError)
             BotToast.showAttachedWidget(
-                attachedBuilder: (_) => Card(
-                      color: Color(0xff1E1F1C),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(3)),
-                      child: Container(
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color: Color(0xff1E1F1C),
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                        child: Center(
-                          child: Text(
-                            output.output,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+              attachedBuilder: (_) => Card(
+                color: Color(0xff1E1F1C),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3)),
+                child: Container(
+                  height: 50,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: Color(0xff1E1F1C),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${output.output}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
-                duration: Duration(seconds: 5),
-                target: Offset(MediaQuery.of(context).size.width - 100, 10));
+                  ),
+                ),
+              ),
+              duration: Duration(seconds: 5),
+              target: Offset(MediaQuery.of(context).size.width - 100, 10),
+            );
+          else
+            BotToast.showAttachedWidget(
+              attachedBuilder: (_) => Card(
+                color: Color(0xff1E1F1C),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3)),
+                child: Container(
+                  height: 50,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: Color(0xff1E1F1C),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Some error Occured',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              duration: Duration(seconds: 5),
+              target: Offset(MediaQuery.of(context).size.width - 100, 10),
+            );
         },
         child: Card(
           elevation: 3,
@@ -134,27 +163,15 @@ class Node {
                             hintText: '0'),
                         onChanged: (s) {
                           if (i == 1) {
-                            if (input['Second'] == null)
-                              input = Map.fromEntries([
-                                MapEntry('First', s),
-                                MapEntry('Second', input['Second'])
-                              ]);
-                            else if (input['Second'] != null)
-                              input = Map.fromEntries([
-                                MapEntry('First', s),
-                                MapEntry('Second', input['Second'])
-                              ]);
+                            input = Map.fromEntries([
+                              MapEntry('First', s),
+                              MapEntry('Second', input['Second'])
+                            ]);
                           } else if (i == 2) {
-                            if (input['First'] == null)
-                              input = Map.fromEntries([
-                                MapEntry('First', input['First']),
-                                MapEntry('Second', s)
-                              ]);
-                            else if (input['First'] != null)
-                              input = Map.fromEntries([
-                                MapEntry('First', input['First']),
-                                MapEntry('Second', s)
-                              ]);
+                            input = Map.fromEntries([
+                              MapEntry('First', input['First']),
+                              MapEntry('Second', s)
+                            ]);
                           }
                         },
                         minLines: 1,
@@ -230,7 +247,8 @@ class Node {
 
 class Output {
   final bool hasError;
-  final String output;
+  final dynamic output;
+  final NodeCategory outputType;
 
-  Output({this.hasError, this.output});
+  Output({this.hasError, this.output, this.outputType});
 }
