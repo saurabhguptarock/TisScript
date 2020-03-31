@@ -70,14 +70,14 @@ class Node {
           else
             BotToast.showAttachedWidget(
               attachedBuilder: (_) => Card(
-                color: Color(0xff1E1F1C),
+                color: Color(0xffd8000c),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(3)),
                 child: Container(
                   height: 50,
-                  width: 150,
+                  width: 250,
                   decoration: BoxDecoration(
-                    color: Color(0xff1E1F1C),
+                    color: Color(0xffd8000c),
                     borderRadius: BorderRadius.circular(3),
                   ),
                   child: Center(

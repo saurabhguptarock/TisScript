@@ -1106,31 +1106,60 @@ class ColorPicker extends Node {
           Output output = evaluateNode(this);
           if (!output.hasError)
             BotToast.showAttachedWidget(
-                attachedBuilder: (_) => Card(
-                      color: Color(0xff1E1F1C),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(3)),
-                      child: Container(
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color: Color(0xff1E1F1C),
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '${output.output}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+              attachedBuilder: (_) => Card(
+                color: Color(0xff1E1F1C),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3)),
+                child: Container(
+                  height: 50,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: Color(0xff1E1F1C),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${output.output}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
-                duration: Duration(seconds: 5),
-                target: Offset(MediaQuery.of(context).size.width - 100, 10));
+                  ),
+                ),
+              ),
+              duration: Duration(seconds: 5),
+              target: Offset(MediaQuery.of(context).size.width - 100, 10),
+            );
+          else
+            BotToast.showAttachedWidget(
+              attachedBuilder: (_) => Card(
+                color: Color(0xffd8000c),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3)),
+                child: Container(
+                  height: 50,
+                  width: 250,
+                  decoration: BoxDecoration(
+                    color: Color(0xffd8000c),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Some error Occured',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              duration: Duration(seconds: 5),
+              target: Offset(MediaQuery.of(context).size.width - 100, 10),
+            );
         },
         child: Card(
           elevation: 3,
