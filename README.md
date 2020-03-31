@@ -1,6 +1,6 @@
-# tis_script
+# Tis Script
 
-A new Flutter project.
+A visual programming editor for [Dart Programming Language](https://dart.dev).
 
 ## Getting Started
 
