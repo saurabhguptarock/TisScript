@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tis_script/shared/shared.dart';
 import 'package:tis_script/nodes.dart';
 
@@ -120,19 +121,16 @@ class Node {
                     ),
                   ),
                   width: width,
-                  height: 20,
+                  height: 30,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 5, right: 10),
-                        child: InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            isContracted
-                                ? Icons.arrow_drop_down
-                                : Icons.arrow_drop_up,
-                            color: Colors.white,
-                          ),
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Icon(
+                          FontAwesomeIcons.slidersH,
+                          color: Colors.black38,
+                          size: 15,
                         ),
                       ),
                       Padding(
@@ -142,100 +140,113 @@ class Node {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.grey,
+                          size: 20,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                for (var i = 1; i <= noOfInputs; i++) ...[
+                for (var i = 1; i <= noOfInputs; i++)
                   Positioned(
-                    left: 15,
-                    top: 40.0 * i,
-                    child: SizedBox(
-                      height: 20,
-                      width: width * .7,
-                      child: TextField(
-                        autofocus: true,
-                        keyboardType: TextInputType.number,
-                        cursorColor: Colors.white,
-                        decoration: InputDecoration.collapsed(
-                            border: InputBorder.none,
-                            hintStyle:
-                                TextStyle(fontSize: 12, color: Colors.white),
-                            hintText: '0'),
-                        onChanged: (s) {
-                          if (i == 1) {
-                            input = Map.fromEntries([
-                              MapEntry('First', s),
-                              MapEntry('Second', input['Second'])
-                            ]);
-                          } else if (i == 2) {
-                            input = Map.fromEntries([
-                              MapEntry('First', input['First']),
-                              MapEntry('Second', s)
-                            ]);
-                          }
-                        },
-                        minLines: 1,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
+                    top: 30.0 * i + 10,
+                    left: 3,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Card(
+                          elevation: 2,
+                          color: Color(0xff403F40),
+                          shape: CircleBorder(),
+                          child: Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                              color: Color(0xff403F40),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      color: titleColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 40.0 * i + 19,
-                    left: 0,
-                    child: Container(
-                      height: 10,
-                      width: 10,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                ],
-                for (var i = 1; i <= noOfOutputs; i++) ...[
-                  Positioned(
-                    right: 15,
-                    top: 20.0 * i,
-                    child: SizedBox(
-                      height: 20,
-                      width: width * .1,
-                      child: TextField(
-                        readOnly: true,
-                        cursorColor: Colors.white,
-                        decoration: InputDecoration.collapsed(
-                            border: InputBorder.none,
-                            hintStyle:
-                                TextStyle(fontSize: 12, color: Colors.white),
-                            hintText: '0'),
-                        enableInteractiveSelection: true,
-                        minLines: 1,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
+                        SizedBox(width: 5),
+                        Text(
+                          i == 1 ? "${input['First']}" : "${input['Second']}",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
                         ),
-                      ),
+                      ],
                     ),
                   ),
+                for (var i = 1; i <= noOfOutputs; i++)
                   Positioned(
-                    top: 20.0 * i + 19,
-                    right: 0,
-                    child: Container(
-                      height: 10,
-                      width: 10,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
+                    top: 30.0 * i + 10,
+                    right: 3,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          i == 1 ? "${output['First']}" : "${output['Second']}",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                        SizedBox(width: 5),
+                        Card(
+                          elevation: 2,
+                          color: Color(0xff403F40),
+                          shape: CircleBorder(),
+                          child: Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                              color: Color(0xff403F40),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      color: titleColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
               ],
             ),
           ),

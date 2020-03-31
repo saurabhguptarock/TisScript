@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tis_script/model/model.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart' as color;
 import 'package:tis_script/shared/shared.dart';
@@ -120,12 +121,6 @@ class AddInt extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -144,12 +139,6 @@ class AddDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -172,12 +161,6 @@ class AddString extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
-
-  @override
   NodeCategory get category => NodeCategory.String;
 
   @override
@@ -196,12 +179,6 @@ class SubtractInt extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
 
   @override
   NodeCategory get category => NodeCategory.int;
@@ -224,12 +201,6 @@ class SubtractDouble extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 180;
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -248,12 +219,6 @@ class MultiplyInt extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
 
   @override
   NodeCategory get category => NodeCategory.int;
@@ -276,12 +241,6 @@ class MultiplyDouble extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 180;
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -300,12 +259,6 @@ class DivideFullInt extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
 
   @override
   NodeCategory get category => NodeCategory.int;
@@ -328,12 +281,6 @@ class DivideFullDouble extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 180;
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -352,12 +299,6 @@ class DivideQuestionInt extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 180;
 
   @override
   NodeCategory get category => NodeCategory.int;
@@ -380,12 +321,6 @@ class DivideQuestionDouble extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 220;
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -404,12 +339,6 @@ class DivideRemainderInt extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 200;
 
   @override
   NodeCategory get category => NodeCategory.int;
@@ -432,12 +361,6 @@ class DivideRemainderDouble extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 220;
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -458,10 +381,7 @@ class NotBool extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 90;
-
-  @override
-  double get width => 150;
+  double get height => 80;
 
   @override
   NodeCategory get category => NodeCategory.bool;
@@ -561,19 +481,16 @@ class NotBool extends Node {
                     ),
                   ),
                   width: width,
-                  height: 20,
+                  height: 30,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 5, right: 10),
-                        child: InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            isContracted
-                                ? Icons.arrow_drop_down
-                                : Icons.arrow_drop_up,
-                            color: Colors.white,
-                          ),
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Icon(
+                          FontAwesomeIcons.slidersH,
+                          color: Colors.black38,
+                          size: 15,
                         ),
                       ),
                       Padding(
@@ -583,72 +500,113 @@ class NotBool extends Node {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.grey,
+                          size: 20,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                Positioned(
-                  left: 15,
-                  top: 40.0,
-                  child: SizedBox(
-                    child: Checkbox(
-                      value: input['First'] ?? true,
-                      activeColor: Colors.black.withOpacity(0.9),
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      onChanged: (val) {
-                        input = Map.fromEntries([MapEntry('First', val)]);
-                      },
+                for (var i = 1; i <= noOfInputs; i++)
+                  Positioned(
+                    left: 3,
+                    top: 30.0 * i + 10,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Card(
+                          elevation: 2,
+                          color: Color(0xff403F40),
+                          shape: CircleBorder(),
+                          child: Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                              color: Color(0xff403F40),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      color: titleColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          "${input['First']}",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                Positioned(
-                  top: 40.0 + 15,
-                  left: 0,
-                  child: Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
+                for (var i = 1; i <= noOfOutputs; i++)
+                  Positioned(
+                    top: 30.0 * i + 10,
+                    right: 3,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "${output['First']}",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                        SizedBox(width: 5),
+                        Card(
+                          elevation: 2,
+                          color: Color(0xff403F40),
+                          shape: CircleBorder(),
+                          child: Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                              color: Color(0xff403F40),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      color: titleColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                Positioned(
-                  right: 15,
-                  top: 20.0,
-                  child: SizedBox(
-                    height: 20,
-                    width: width * .1,
-                    child: TextField(
-                      readOnly: true,
-                      cursorColor: Colors.white,
-                      decoration: InputDecoration.collapsed(
-                          border: InputBorder.none,
-                          hintStyle:
-                              TextStyle(fontSize: 12, color: Colors.white),
-                          hintText: '0'),
-                      enableInteractiveSelection: true,
-                      minLines: 1,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 20.0 + 19,
-                  right: 0,
-                  child: Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
@@ -669,10 +627,7 @@ class IncrementInt extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 90;
-
-  @override
-  double get width => 150;
+  double get height => 80;
 
   @override
   NodeCategory get category => NodeCategory.int;
@@ -695,10 +650,7 @@ class IncrementDouble extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 90;
-
-  @override
-  double get width => 180;
+  double get height => 80;
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -721,10 +673,7 @@ class DecrementInt extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 90;
-
-  @override
-  double get width => 180;
+  double get height => 80;
 
   @override
   NodeCategory get category => NodeCategory.int;
@@ -747,10 +696,7 @@ class DecrementDouble extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 90;
-
-  @override
-  double get width => 180;
+  double get height => 80;
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -773,12 +719,6 @@ class GreaterThanInt extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 180;
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -797,12 +737,6 @@ class GreaterThanDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 200;
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -825,12 +759,6 @@ class GreaterThanOrEqualToInt extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 250;
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -849,12 +777,6 @@ class GreaterThanOrEqualToDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 270;
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -877,12 +799,6 @@ class LessThanInt extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -901,12 +817,6 @@ class LessThanDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 180;
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -929,12 +839,6 @@ class LessThanOrEqualToInt extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 250;
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -953,12 +857,6 @@ class LessThanOrEqualToDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 250;
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -981,12 +879,6 @@ class EqualityInt extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
-
-  @override
   NodeCategory get category => NodeCategory.int;
 
   @override
@@ -1005,12 +897,6 @@ class EqualityDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -1033,12 +919,6 @@ class EqualityString extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
-
-  @override
   NodeCategory get category => NodeCategory.String;
 
   @override
@@ -1057,12 +937,6 @@ class EqualityBool extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
 
   @override
   NodeCategory get category => NodeCategory.bool;
@@ -1162,19 +1036,16 @@ class EqualityBool extends Node {
                     ),
                   ),
                   width: width,
-                  height: 20,
+                  height: 30,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 5, right: 10),
-                        child: InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            isContracted
-                                ? Icons.arrow_drop_down
-                                : Icons.arrow_drop_up,
-                            color: Colors.white,
-                          ),
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Icon(
+                          FontAwesomeIcons.slidersH,
+                          color: Colors.black38,
+                          size: 15,
                         ),
                       ),
                       Padding(
@@ -1184,87 +1055,113 @@ class EqualityBool extends Node {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.grey,
+                          size: 20,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                for (var i = 1; i <= noOfInputs; i++) ...[
+                for (var i = 1; i <= noOfInputs; i++)
                   Positioned(
-                    left: 15,
-                    top: 40.0 * i,
-                    child: SizedBox(
-                        child: Checkbox(
-                      value: i == 1
-                          ? input['First'] ?? true
-                          : input['Second'] ?? true,
-                      activeColor: Colors.black.withOpacity(0.9),
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      onChanged: (val) {
-                        if (i == 1) {
-                          input = Map.fromEntries([
-                            MapEntry('First', val),
-                            MapEntry('Second', input['Second'])
-                          ]);
-                        } else if (i == 2) {
-                          input = Map.fromEntries([
-                            MapEntry('First', input['First']),
-                            MapEntry('Second', val)
-                          ]);
-                        }
-                      },
-                    )),
-                  ),
-                  Positioned(
-                    top: 40.0 * i + 19,
-                    left: 0,
-                    child: Container(
-                      height: 10,
-                      width: 10,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                ],
-                for (var i = 1; i <= noOfOutputs; i++) ...[
-                  Positioned(
-                    right: 15,
-                    top: 20.0 * i,
-                    child: SizedBox(
-                      height: 20,
-                      width: width * .1,
-                      child: TextField(
-                        readOnly: true,
-                        cursorColor: Colors.white,
-                        decoration: InputDecoration.collapsed(
-                            border: InputBorder.none,
-                            hintStyle:
-                                TextStyle(fontSize: 12, color: Colors.white),
-                            hintText: '0'),
-                        enableInteractiveSelection: true,
-                        minLines: 1,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
+                    top: 30.0 * i + 10,
+                    left: 3,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Card(
+                          elevation: 2,
+                          color: Color(0xff403F40),
+                          shape: CircleBorder(),
+                          child: Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                              color: Color(0xff403F40),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      color: titleColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        SizedBox(width: 5),
+                        Text(
+                          i == 1 ? "${input['First']}" : "${input['Second']}",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                      ],
                     ),
                   ),
+                for (var i = 1; i <= noOfOutputs; i++)
                   Positioned(
-                    top: 20.0 * i + 19,
-                    right: 0,
-                    child: Container(
-                      height: 10,
-                      width: 10,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
+                    top: 30.0 * i + 10,
+                    right: 3,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          i == 1 ? "${output['First']}" : "${output['Second']}",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                        SizedBox(width: 5),
+                        Card(
+                          elevation: 2,
+                          color: Color(0xff403F40),
+                          shape: CircleBorder(),
+                          child: Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                              color: Color(0xff403F40),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      color: titleColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
               ],
             ),
           ),
@@ -1283,12 +1180,6 @@ class NotEqualInt extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
 
   @override
   NodeCategory get category => NodeCategory.int;
@@ -1311,12 +1202,6 @@ class NotEqualDouble extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 180;
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -1337,12 +1222,6 @@ class NotEqualString extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 170;
-
-  @override
   NodeCategory get category => NodeCategory.String;
 
   @override
@@ -1361,12 +1240,6 @@ class NotEqualBool extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 150;
 
   @override
   NodeCategory get category => NodeCategory.bool;
@@ -1466,19 +1339,16 @@ class NotEqualBool extends Node {
                     ),
                   ),
                   width: width,
-                  height: 20,
+                  height: 30,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 5, right: 10),
-                        child: InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            isContracted
-                                ? Icons.arrow_drop_down
-                                : Icons.arrow_drop_up,
-                            color: Colors.white,
-                          ),
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Icon(
+                          FontAwesomeIcons.slidersH,
+                          color: Colors.black38,
+                          size: 15,
                         ),
                       ),
                       Padding(
@@ -1488,87 +1358,113 @@ class NotEqualBool extends Node {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.grey,
+                          size: 20,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                for (var i = 1; i <= noOfInputs; i++) ...[
+                for (var i = 1; i <= noOfInputs; i++)
                   Positioned(
-                    left: 15,
-                    top: 40.0 * i,
-                    child: SizedBox(
-                        child: Checkbox(
-                      value: i == 1
-                          ? input['First'] ?? true
-                          : input['Second'] ?? true,
-                      activeColor: Colors.black.withOpacity(0.9),
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      onChanged: (val) {
-                        if (i == 1) {
-                          input = Map.fromEntries([
-                            MapEntry('First', val),
-                            MapEntry('Second', input['Second'])
-                          ]);
-                        } else if (i == 2) {
-                          input = Map.fromEntries([
-                            MapEntry('First', input['First']),
-                            MapEntry('Second', val)
-                          ]);
-                        }
-                      },
-                    )),
-                  ),
-                  Positioned(
-                    top: 40.0 * i + 19,
-                    left: 0,
-                    child: Container(
-                      height: 10,
-                      width: 10,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                ],
-                for (var i = 1; i <= noOfOutputs; i++) ...[
-                  Positioned(
-                    right: 15,
-                    top: 20.0 * i,
-                    child: SizedBox(
-                      height: 20,
-                      width: width * .1,
-                      child: TextField(
-                        readOnly: true,
-                        cursorColor: Colors.white,
-                        decoration: InputDecoration.collapsed(
-                            border: InputBorder.none,
-                            hintStyle:
-                                TextStyle(fontSize: 12, color: Colors.white),
-                            hintText: '0'),
-                        enableInteractiveSelection: true,
-                        minLines: 1,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
+                    top: 30.0 * i + 10,
+                    left: 3,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Card(
+                          elevation: 2,
+                          color: Color(0xff403F40),
+                          shape: CircleBorder(),
+                          child: Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                              color: Color(0xff403F40),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      color: titleColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        SizedBox(width: 5),
+                        Text(
+                          i == 1 ? "${input['First']}" : "${input['Second']}",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                      ],
                     ),
                   ),
+                for (var i = 1; i <= noOfOutputs; i++)
                   Positioned(
-                    top: 20.0 * i + 19,
-                    right: 0,
-                    child: Container(
-                      height: 10,
-                      width: 10,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
+                    top: 30.0 * i + 10,
+                    right: 3,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          i == 1 ? "${output['First']}" : "${output['Second']}",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                        SizedBox(width: 5),
+                        Card(
+                          elevation: 2,
+                          color: Color(0xff403F40),
+                          shape: CircleBorder(),
+                          child: Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                              color: Color(0xff403F40),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      color: titleColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
               ],
             ),
           ),
@@ -1587,12 +1483,6 @@ class RandomIntInRange extends Node {
 
   @override
   int get noOfOutputs => 1;
-
-  @override
-  double get height => 130;
-
-  @override
-  double get width => 220;
 
   @override
   NodeCategory get category => NodeCategory.int;
@@ -1615,12 +1505,6 @@ class RandomDoubleInRange extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 130;
-
-  @override
-  double get width => 250;
-
-  @override
   NodeCategory get category => NodeCategory.double;
 
   @override
@@ -1641,10 +1525,7 @@ class RandomBool extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 90;
-
-  @override
-  double get width => 150;
+  double get height => 80;
 
   @override
   NodeCategory get category => NodeCategory.bool;
@@ -1667,10 +1548,7 @@ class ColorPicker extends Node {
   int get noOfOutputs => 1;
 
   @override
-  double get height => 90;
-
-  @override
-  double get width => 150;
+  double get height => 80;
 
   @override
   NodeCategory get category => NodeCategory.Color;
@@ -1770,19 +1648,16 @@ class ColorPicker extends Node {
                     ),
                   ),
                   width: width,
-                  height: 20,
+                  height: 30,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 5, right: 10),
-                        child: InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            isContracted
-                                ? Icons.arrow_drop_down
-                                : Icons.arrow_drop_up,
-                            color: Colors.white,
-                          ),
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Icon(
+                          FontAwesomeIcons.slidersH,
+                          color: Colors.black38,
+                          size: 15,
                         ),
                       ),
                       Padding(
@@ -1792,12 +1667,20 @@ class ColorPicker extends Node {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.grey,
+                          size: 20,
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 Positioned(
-                  left: 15,
-                  top: 40.0,
+                  top: 45,
+                  left: 10,
                   child: SizedBox(
                     height: 20,
                     width: width * .4,
@@ -1837,43 +1720,54 @@ class ColorPicker extends Node {
                     ),
                   ),
                 ),
-                Positioned(
-                  right: 15,
-                  top: 20.0,
-                  child: SizedBox(
-                    height: 20,
-                    width: width * .1,
-                    child: TextField(
-                      readOnly: true,
-                      cursorColor: Colors.white,
-                      decoration: InputDecoration.collapsed(
-                          border: InputBorder.none,
-                          hintStyle:
-                              TextStyle(fontSize: 12, color: Colors.white),
-                          hintText: '0'),
-                      enableInteractiveSelection: true,
-                      minLines: 1,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
+                for (var i = 1; i <= noOfOutputs; i++)
+                  Positioned(
+                    top: 30.0 * i + 10,
+                    right: 3,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "${output['First']}",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                        SizedBox(width: 5),
+                        Card(
+                          elevation: 2,
+                          color: Color(0xff403F40),
+                          shape: CircleBorder(),
+                          child: Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                              color: Color(0xff403F40),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      color: titleColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                Positioned(
-                  top: 20.0 + 19,
-                  right: 0,
-                  child: Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
