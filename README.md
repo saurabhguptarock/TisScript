@@ -1,8 +1,11 @@
 # Tis Script
 
-A visual programming editor for [Dart Programming Language](https://dart.dev) {currently under development}.
-\n
-`Pull request is appreciated.`
+A visual programming editor for [Dart Programming Language](https://dart.dev).
+
+{currently under development}.
+
+
+`Pull request is appreciated`
 
 ## Getting Started
 
