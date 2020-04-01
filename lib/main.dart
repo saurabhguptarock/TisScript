@@ -1,7 +1,10 @@
 import 'dart:ui';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tis_script/model/model.dart';
 import 'package:tis_script/nodes.dart';
+import 'package:tis_script/shared/shared.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,7 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Color> _hovercolor =
       List.generate(availableNodes.length, (index) => Colors.transparent);
   bool _showNodeMenu = false;
-  List<Widget> _nodes = [];
+  Map<int, Node> _indexAndNode = {};
+  int _noOfNodes = 0;
   String _searchQuery = '';
   Offset _initialOffset;
   Offset _finalOffset;
@@ -74,26 +78,25 @@ class _MyHomePageState extends State<MyHomePage> {
         if (!((details.globalPosition.dx - left) < 220 &&
             (details.globalPosition.dx - left) > 0 &&
             (details.globalPosition.dy - top) < 350 &&
-            (details.globalPosition.dy - top) > 0))
+            (details.globalPosition.dy - top) > 0)) {
           setState(() {
             _showNodeMenu = false;
           });
-        _initialOffset = details.globalPosition;
-        setState(() {});
+        }
+        setState(() {
+          _initialOffset = details.globalPosition;
+        });
       },
       onPanEnd: (details) {
-        _initialOffset = null;
-        _finalOffset = null;
-        setState(() {});
+        setState(() {
+          _initialOffset = null;
+          _finalOffset = null;
+        });
       },
       onPanUpdate: (details) {
-        _finalOffset = details.globalPosition;
-        setState(() {});
-        // setState(() {
-        //   offset[_nodes.length - 1] = Offset(
-        //       offset[_nodes.length - 1].dx + details.delta.dx,
-        //       offset[_nodes.length - 1].dy + details.delta.dy);
-        // });
+        setState(() {
+          _finalOffset = details.globalPosition;
+        });
       },
       child: Scaffold(
         backgroundColor: Colors.grey[850],
@@ -107,7 +110,262 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   : null,
               child: Stack(
-                children: <Widget>[..._nodes],
+                children: <Widget>[
+                  for (var i = 0; i < _noOfNodes; i++)
+                    Positioned(
+                      left: _indexAndNode[i].nodePosition.dx,
+                      top: _indexAndNode[i].nodePosition.dy,
+                      child: GestureDetector(
+                        onDoubleTap: () {
+                          Output output = evaluateNode(_indexAndNode[i]);
+                          if (!output.hasError)
+                            BotToast.showAttachedWidget(
+                              attachedBuilder: (_) => Card(
+                                color: Color(0xff1E1F1C),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(3)),
+                                child: Container(
+                                  height: 50,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff1E1F1C),
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '${output.output}',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              duration: Duration(seconds: 5),
+                              target: Offset(
+                                  MediaQuery.of(context).size.width - 100, 10),
+                            );
+                          else
+                            BotToast.showAttachedWidget(
+                              attachedBuilder: (_) => Card(
+                                color: Color(0xffd8000c),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(3)),
+                                child: Container(
+                                  height: 50,
+                                  width: 250,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffd8000c),
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Some error Occured',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              duration: Duration(seconds: 5),
+                              target: Offset(
+                                  MediaQuery.of(context).size.width - 100, 10),
+                            );
+                        },
+                        onPanStart: (details) {
+                          Offset offset = Offset(details.globalPosition.dx - 75,
+                              details.globalPosition.dy - 50);
+                          setState(() {
+                            _indexAndNode[i].nodePosition = offset;
+                          });
+                        },
+                        onPanUpdate: (details) {
+                          Offset offset = Offset(details.globalPosition.dx - 75,
+                              details.globalPosition.dy - 50);
+                          setState(() {
+                            _indexAndNode[i].nodePosition = offset;
+                          });
+                        },
+                        child: Card(
+                          elevation: 3,
+                          color: Color(0xff403F40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Container(
+                            height: _indexAndNode[i].height,
+                            width: _indexAndNode[i].width,
+                            decoration: BoxDecoration(
+                              color: Color(0xff403F40),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Stack(
+                              children: <Widget>[
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: _indexAndNode[i].titleColor,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      topRight: Radius.circular(5),
+                                    ),
+                                  ),
+                                  width: _indexAndNode[i].width,
+                                  height: 30,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: Icon(
+                                          FontAwesomeIcons.slidersH,
+                                          color: Colors.black38,
+                                          size: 15,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 3),
+                                        child: Text(
+                                          _indexAndNode[i].name,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                        child: Icon(
+                                          Icons.edit,
+                                          color: Colors.grey,
+                                          size: 20,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                for (var j = 1;
+                                    j <= _indexAndNode[i].noOfInputs;
+                                    j++)
+                                  Positioned(
+                                    top: 30.0 * j + 10,
+                                    left: 3,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Card(
+                                          elevation: 2,
+                                          color: Color(0xff403F40),
+                                          shape: CircleBorder(),
+                                          child: Container(
+                                            height: 18,
+                                            width: 18,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xff403F40),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Center(
+                                              child: Container(
+                                                height: 14,
+                                                width: 14,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.black45,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Center(
+                                                  child: Container(
+                                                    height: 10,
+                                                    width: 10,
+                                                    decoration: BoxDecoration(
+                                                      color: _indexAndNode[i]
+                                                          .titleColor,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Text(
+                                          j == 1
+                                              ? "${_indexAndNode[i].input['First']}"
+                                              : "${_indexAndNode[i].input['Second']}",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                for (var k = 1;
+                                    k <= _indexAndNode[i].noOfOutputs;
+                                    k++)
+                                  Positioned(
+                                    top: 30.0 * k + 10,
+                                    right: 3,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          k == 1
+                                              ? "${_indexAndNode[i].output['First']}"
+                                              : "${_indexAndNode[i].output['Second']}",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Card(
+                                          elevation: 2,
+                                          color: Color(0xff403F40),
+                                          shape: CircleBorder(),
+                                          child: Container(
+                                            height: 18,
+                                            width: 18,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xff403F40),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Center(
+                                              child: Container(
+                                                height: 14,
+                                                width: 14,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.black45,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Center(
+                                                  child: Container(
+                                                    height: 10,
+                                                    width: 10,
+                                                    decoration: BoxDecoration(
+                                                      color: _indexAndNode[i]
+                                                          .titleColor,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ),
             if (_showNodeMenu)
@@ -172,12 +430,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   onTap: () {
                                     setState(() {
                                       _showNodeMenu = !_showNodeMenu;
+                                      _indexAndNode[_noOfNodes] =
+                                          availableNodes[i]
+                                            ..nodePosition = Offset(left, top);
+                                      _noOfNodes++;
+                                      _hovercolor[i] = Colors.transparent;
                                     });
-                                    _nodes.add(availableNodes[i].toWidget(
-                                        offsetX: left,
-                                        offsetY: top,
-                                        context: context));
-                                    _hovercolor[i] = Colors.transparent;
                                   },
                                   child: MouseRegion(
                                     onHover: (details) {
