@@ -39,9 +39,12 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _showNodeMenu = false;
   Map<int, Node> _indexAndNode = {};
   int _noOfNodes = 0;
+  int _currentSelectedNode;
   String _searchQuery = '';
   Offset _initialOffset;
   Offset _finalOffset;
+  Offset _initialNodeOffset;
+  Offset _finalNodeOffset;
   Offset tmpLocation;
 
   @override
@@ -109,7 +112,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       initialPosition: _initialOffset,
                       finalPosition: _finalOffset,
                     )
-                  : null,
+                  : _initialNodeOffset != null && _finalNodeOffset != null
+                      ? NodeConnectLinePainter(
+                          initialPosition: _initialNodeOffset,
+                          finalPosition: _finalNodeOffset,
+                          color: _indexAndNode[_currentSelectedNode].titleColor)
+                      : null,
               child: Stack(
                 children: <Widget>[
                   for (var i = 0; i < _noOfNodes; i++)
@@ -182,8 +190,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           setState(() {
                             tmpLocation = details.globalPosition;
                           });
-                        },
-                        onPanStart: (details) {
                           Offset offset = Offset(
                               _indexAndNode[i].nodePosition.dx +
                                   details.globalPosition.dx -
@@ -286,22 +292,43 @@ class _MyHomePageState extends State<MyHomePage> {
                                               color: Color(0xff403F40),
                                               shape: BoxShape.circle,
                                             ),
-                                            child: Center(
-                                              child: Container(
-                                                height: 14,
-                                                width: 14,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.black45,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Center(
-                                                  child: Container(
-                                                    height: 10,
-                                                    width: 10,
-                                                    decoration: BoxDecoration(
-                                                      color: _indexAndNode[i]
-                                                          .titleColor,
-                                                      shape: BoxShape.circle,
+                                            child: GestureDetector(
+                                              onPanDown: (details) {
+                                                setState(() {
+                                                  _currentSelectedNode = i;
+                                                  _initialNodeOffset =
+                                                      details.globalPosition;
+                                                });
+                                              },
+                                              onPanEnd: (details) {
+                                                setState(() {
+                                                  _initialNodeOffset = null;
+                                                  _finalNodeOffset = null;
+                                                });
+                                              },
+                                              onPanUpdate: (details) {
+                                                setState(() {
+                                                  _finalNodeOffset =
+                                                      details.globalPosition;
+                                                });
+                                              },
+                                              child: Center(
+                                                child: Container(
+                                                  height: 14,
+                                                  width: 14,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black45,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Center(
+                                                    child: Container(
+                                                      height: 10,
+                                                      width: 10,
+                                                      decoration: BoxDecoration(
+                                                        color: _indexAndNode[i]
+                                                            .titleColor,
+                                                        shape: BoxShape.circle,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -351,22 +378,43 @@ class _MyHomePageState extends State<MyHomePage> {
                                               color: Color(0xff403F40),
                                               shape: BoxShape.circle,
                                             ),
-                                            child: Center(
-                                              child: Container(
-                                                height: 14,
-                                                width: 14,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.black45,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Center(
-                                                  child: Container(
-                                                    height: 10,
-                                                    width: 10,
-                                                    decoration: BoxDecoration(
-                                                      color: _indexAndNode[i]
-                                                          .titleColor,
-                                                      shape: BoxShape.circle,
+                                            child: GestureDetector(
+                                              onPanDown: (details) {
+                                                setState(() {
+                                                  _currentSelectedNode = i;
+                                                  _initialNodeOffset =
+                                                      details.globalPosition;
+                                                });
+                                              },
+                                              onPanEnd: (details) {
+                                                setState(() {
+                                                  _initialNodeOffset = null;
+                                                  _finalNodeOffset = null;
+                                                });
+                                              },
+                                              onPanUpdate: (details) {
+                                                setState(() {
+                                                  _finalNodeOffset =
+                                                      details.globalPosition;
+                                                });
+                                              },
+                                              child: Center(
+                                                child: Container(
+                                                  height: 14,
+                                                  width: 14,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black45,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Center(
+                                                    child: Container(
+                                                      height: 10,
+                                                      width: 10,
+                                                      decoration: BoxDecoration(
+                                                        color: _indexAndNode[i]
+                                                            .titleColor,
+                                                        shape: BoxShape.circle,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -522,6 +570,32 @@ class DottedLinePainter extends CustomPainter {
           Offset(initialPosition.dx, initialPosition.dy),
         ],
         paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+class NodeConnectLinePainter extends CustomPainter {
+  Offset initialPosition;
+  Offset finalPosition;
+  Color color;
+  NodeConnectLinePainter(
+      {Offset initialPosition, Offset finalPosition, Color color}) {
+    this.initialPosition = initialPosition;
+    this.finalPosition = finalPosition;
+    this.color = color;
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..strokeCap = StrokeCap.butt
+      ..strokeWidth = 3;
+    canvas.drawLine(initialPosition, finalPosition, paint);
   }
 
   @override
