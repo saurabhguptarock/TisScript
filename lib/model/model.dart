@@ -16,6 +16,7 @@ class Node {
   final bool isContracted = false;
   Map<String, dynamic> inputLocal = {};
   Map<String, dynamic> outputLocal = {};
+  Offset nodePositionLocal = Offset.zero;
 
   set input(Map<String, dynamic> inp) {
     inputLocal = inp;
@@ -33,10 +34,19 @@ class Node {
     return outputLocal;
   }
 
+  set nodePosition(Offset offset) {
+    nodePositionLocal = offset;
+  }
+
+  Offset get nodePosition {
+    return nodePositionLocal;
+  }
+
   Widget toWidget({double offsetX, double offsetY, BuildContext context}) {
+    nodePosition = Offset(offsetX, offsetY);
     return Positioned(
-      left: offsetX,
-      top: offsetY,
+      left: nodePosition.dx,
+      top: nodePosition.dy,
       child: GestureDetector(
         onDoubleTap: () {
           Output output = evaluateNode(this);
@@ -97,6 +107,11 @@ class Node {
               target: Offset(MediaQuery.of(context).size.width - 100, 10),
             );
         },
+        onPanDown: (details) {
+          print('object');
+        },
+        onPanEnd: (details) {},
+        onPanUpdate: (details) {},
         child: Card(
           elevation: 3,
           color: Color(0xff403F40),

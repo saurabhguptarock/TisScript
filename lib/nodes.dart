@@ -394,9 +394,10 @@ class NotBool extends Node {
 
   @override
   Widget toWidget({double offsetX, double offsetY, BuildContext context}) {
+    nodePosition = Offset(offsetX, offsetY);
     return Positioned(
-      left: offsetX,
-      top: offsetY,
+      left: nodePosition.dx,
+      top: nodePosition.dy,
       child: GestureDetector(
         onDoubleTap: () {
           Output output = evaluateNode(this);
@@ -457,6 +458,11 @@ class NotBool extends Node {
               target: Offset(MediaQuery.of(context).size.width - 100, 10),
             );
         },
+        onPanDown: (details) {
+          print('object');
+        },
+        onPanEnd: (details) {},
+        onPanUpdate: (details) {},
         child: Card(
           elevation: 3,
           color: Color(0xff403F40),
@@ -949,9 +955,10 @@ class EqualityBool extends Node {
 
   @override
   Widget toWidget({double offsetX, double offsetY, BuildContext context}) {
+    nodePosition = Offset(offsetX, offsetY);
     return Positioned(
-      left: offsetX,
-      top: offsetY,
+      left: nodePosition.dx,
+      top: nodePosition.dy,
       child: GestureDetector(
         onDoubleTap: () {
           Output output = evaluateNode(this);
@@ -1012,6 +1019,11 @@ class EqualityBool extends Node {
               target: Offset(MediaQuery.of(context).size.width - 100, 10),
             );
         },
+        onPanDown: (details) {
+          print('object');
+        },
+        onPanEnd: (details) {},
+        onPanUpdate: (details) {},
         child: Card(
           elevation: 3,
           color: Color(0xff403F40),
@@ -1252,9 +1264,10 @@ class NotEqualBool extends Node {
 
   @override
   Widget toWidget({double offsetX, double offsetY, BuildContext context}) {
+    nodePosition = Offset(offsetX, offsetY);
     return Positioned(
-      left: offsetX,
-      top: offsetY,
+      left: nodePosition.dx,
+      top: nodePosition.dy,
       child: GestureDetector(
         onDoubleTap: () {
           Output output = evaluateNode(this);
@@ -1315,6 +1328,11 @@ class NotEqualBool extends Node {
               target: Offset(MediaQuery.of(context).size.width - 100, 10),
             );
         },
+        onPanDown: (details) {
+          print('object');
+        },
+        onPanEnd: (details) {},
+        onPanUpdate: (details) {},
         child: Card(
           elevation: 3,
           color: Color(0xff403F40),
@@ -1561,9 +1579,10 @@ class ColorPicker extends Node {
 
   @override
   Widget toWidget({double offsetX, double offsetY, BuildContext context}) {
+    nodePosition = Offset(offsetX, offsetY);
     return Positioned(
-      left: offsetX,
-      top: offsetY,
+      left: nodePosition.dx,
+      top: nodePosition.dy,
       child: GestureDetector(
         onDoubleTap: () {
           Output output = evaluateNode(this);
@@ -1624,6 +1643,11 @@ class ColorPicker extends Node {
               target: Offset(MediaQuery.of(context).size.width - 100, 10),
             );
         },
+        onPanDown: (details) {
+          print('object');
+        },
+        onPanEnd: (details) {},
+        onPanUpdate: (details) {},
         child: Card(
           elevation: 3,
           color: Color(0xff403F40),

@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
             _showNodeMenu = false;
           });
       },
-      onPanStart: (details) {
+      onPanDown: (details) {
         if (!((details.globalPosition.dx - left) < 220 &&
             (details.globalPosition.dx - left) > 0 &&
             (details.globalPosition.dy - top) < 350 &&
