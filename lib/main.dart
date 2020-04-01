@@ -42,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _searchQuery = '';
   Offset _initialOffset;
   Offset _finalOffset;
+  Offset tmpLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -177,18 +178,35 @@ class _MyHomePageState extends State<MyHomePage> {
                                   MediaQuery.of(context).size.width - 100, 10),
                             );
                         },
+                        onPanDown: (details) {
+                          setState(() {
+                            tmpLocation = details.globalPosition;
+                          });
+                        },
                         onPanStart: (details) {
-                          Offset offset = Offset(details.globalPosition.dx - 75,
-                              details.globalPosition.dy - 50);
+                          Offset offset = Offset(
+                              _indexAndNode[i].nodePosition.dx +
+                                  details.globalPosition.dx -
+                                  tmpLocation.dx,
+                              _indexAndNode[i].nodePosition.dy +
+                                  details.globalPosition.dy -
+                                  tmpLocation.dy);
                           setState(() {
                             _indexAndNode[i].nodePosition = offset;
+                            tmpLocation = details.globalPosition;
                           });
                         },
                         onPanUpdate: (details) {
-                          Offset offset = Offset(details.globalPosition.dx - 75,
-                              details.globalPosition.dy - 50);
+                          Offset offset = Offset(
+                              _indexAndNode[i].nodePosition.dx +
+                                  details.globalPosition.dx -
+                                  tmpLocation.dx,
+                              _indexAndNode[i].nodePosition.dy +
+                                  details.globalPosition.dy -
+                                  tmpLocation.dy);
                           setState(() {
                             _indexAndNode[i].nodePosition = offset;
+                            tmpLocation = details.globalPosition;
                           });
                         },
                         child: Card(
