@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Offset _initialNodeOffset;
   Offset _finalNodeOffset;
   Offset tmpLocation;
+  Node _nodeHovered;
 
   @override
   Widget build(BuildContext context) {
@@ -112,12 +113,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       initialPosition: _initialOffset,
                       finalPosition: _finalOffset,
                     )
-                  : _initialNodeOffset != null && _finalNodeOffset != null
-                      ? NodeConnectLinePainter(
-                          initialPosition: _initialNodeOffset,
-                          finalPosition: _finalNodeOffset,
-                          color: _indexAndNode[_currentSelectedNode].titleColor)
-                      : null,
+                  : null,
+              painter: _initialNodeOffset != null && _finalNodeOffset != null
+                  ? NodeConnectLinePainter(
+                      initialPosition: _initialNodeOffset,
+                      finalPosition: _finalNodeOffset,
+                      color: _indexAndNode[_currentSelectedNode].titleColor)
+                  : null,
               child: Stack(
                 children: <Widget>[
                   for (var i = 0; i < _noOfNodes; i++)
@@ -292,35 +294,39 @@ class _MyHomePageState extends State<MyHomePage> {
                                               color: Color(0xff403F40),
                                               shape: BoxShape.circle,
                                             ),
-                                            child: GestureDetector(
-                                              onPanDown: (details) {
-                                                setState(() {
-                                                  _currentSelectedNode = i;
-                                                  _initialNodeOffset =
-                                                      details.globalPosition;
-                                                });
-                                              },
-                                              onPanEnd: (details) {
-                                                setState(() {
-                                                  _initialNodeOffset = null;
-                                                  _finalNodeOffset = null;
-                                                });
-                                              },
-                                              onPanUpdate: (details) {
-                                                setState(() {
-                                                  _finalNodeOffset =
-                                                      details.globalPosition;
-                                                });
-                                              },
-                                              child: Center(
-                                                child: Container(
-                                                  height: 14,
-                                                  width: 14,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.black45,
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Center(
+                                            child: Center(
+                                              child: Container(
+                                                height: 14,
+                                                width: 14,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.black45,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Center(
+                                                  child: GestureDetector(
+                                                    onPanDown: (details) {
+                                                      setState(() {
+                                                        _currentSelectedNode =
+                                                            i;
+                                                        _initialNodeOffset =
+                                                            details
+                                                                .globalPosition;
+                                                      });
+                                                    },
+                                                    onPanEnd: (details) {
+                                                      setState(() {
+                                                        _initialNodeOffset =
+                                                            null;
+                                                        _finalNodeOffset = null;
+                                                      });
+                                                    },
+                                                    onPanUpdate: (details) {
+                                                      setState(() {
+                                                        _finalNodeOffset =
+                                                            details
+                                                                .globalPosition;
+                                                      });
+                                                    },
                                                     child: Container(
                                                       height: 10,
                                                       width: 10,
