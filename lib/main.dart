@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:ui';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Color> _hovercolor =
       List.generate(availableNodes.length, (index) => Colors.transparent);
   bool _showNodeMenu = false;
-  bool _clickOnNode = false;
   Map<int, Node> _indexAndNode = {};
   int _noOfNodes = 0;
   int _currentSelectedNode;
@@ -106,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
         onTapDown: (details) {
-          if (_clickOnNode) {
+          if (_currentSelectedNode != null) {
             setState(() {
               _currentSelectedNode = null;
             });
@@ -213,7 +211,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           onTap: () {
                             setState(() {
-                              _clickOnNode = true;
                               _currentSelectedNode = i;
                             });
                           },
