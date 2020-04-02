@@ -62,22 +62,36 @@ class _MyHomePageState extends State<MyHomePage> {
             print('z');
           } else if (event.logicalKey == LogicalKeyboardKey.delete) {
             _focusNode.unfocus();
-            if (_currentSelectedNode != null) {
-              _indexAndNode.remove(_currentSelectedNode);
-              _noOfNodes--;
-            }
+            // TODO: Fix deleting node functionality.
+            // if (_currentSelectedNode != null) {
+            //   for (var i = _currentSelectedNode;
+            //       i < _indexAndNode.length;
+            //       i++) {
+            //     if (_currentSelectedNode != null) {
+            //       setState(() {
+            //         _indexAndNode.remove(_currentSelectedNode);
+            //         _currentSelectedNode = null;
+            //       });
+            //     }
+            //   }
+            //   _noOfNodes--;
+            // }
           }
         }
       },
       child: GestureDetector(
         onSecondaryTapDown: (details) {
-          if (!_showNodeMenu) {
+          if (!_showNodeMenu &&
+              details.globalPosition.dx <
+                  MediaQuery.of(context).size.width - 350) {
             setState(() {
               top = details.globalPosition.dy;
               left = details.globalPosition.dx;
               _showNodeMenu = !_showNodeMenu;
             });
-          } else if (_showNodeMenu) {
+          } else if (_showNodeMenu &&
+              details.globalPosition.dx <
+                  MediaQuery.of(context).size.width - 350) {
             if (!((details.globalPosition.dx - left) < 220 &&
                 (details.globalPosition.dx - left) > 0 &&
                 (details.globalPosition.dy - top) < 350 &&
@@ -126,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         child: Scaffold(
-          backgroundColor: Colors.grey[850],
+          backgroundColor: Color(0xff1F1E1F),
           body: Stack(
             children: <Widget>[
               CustomPaint(
@@ -254,6 +268,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             elevation: 3,
                             color: Color(0xff403F40),
                             shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                width: _currentSelectedNode != null
+                                    ? _currentSelectedNode == i ? 2 : 0
+                                    : 0,
+                                color: Colors.orange,
+                              ),
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Container(
@@ -679,15 +699,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              //  if(_showInputDialog)
               Positioned(
                 bottom: 10,
-                right: 10,
+                right: 360,
                 child: Text(
                   'TIS SCRIPT',
                   style: TextStyle(color: Colors.white, fontSize: 55),
                 ),
-              )
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                top: 0,
+                child: Container(
+                  color: Color(0xff282729),
+                  width: 350,
+                ),
+              ),
             ],
           ),
         ),
