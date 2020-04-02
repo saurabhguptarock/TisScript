@@ -736,7 +736,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     width: 70,
                                     child: RaisedButton(
                                       color: Color(0xff3C3C3C),
-                                      onPressed: () {},
+                                      disabledColor: Colors.grey[850],
+                                      onPressed: _indexAndNode.length > 0
+                                          ? () {}
+                                          : null,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(5),
