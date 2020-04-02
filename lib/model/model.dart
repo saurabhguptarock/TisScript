@@ -11,6 +11,7 @@ class Node {
   final double width = 150;
   final Color titleColor = Colors.orange;
   final bool isContracted = false;
+  final bool isEditable = false;
   Map<String, dynamic> inputLocal = {};
   Map<String, dynamic> outputLocal = {};
   Offset nodePositionLocal = Offset.zero;
