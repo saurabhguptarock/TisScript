@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Color> _hovercolor =
       List.generate(availableNodes.length, (index) => Colors.transparent);
   bool _showNodeMenu = false;
+  bool _clickOnNode = false;
   Map<int, Node> _indexAndNode = {};
   int _noOfNodes = 0;
   int _currentSelectedNode;
@@ -105,8 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
         onTapDown: (details) {
-          if (details.globalPosition.dx <
-              MediaQuery.of(context).size.width - 350) {
+          if (_clickOnNode) {
             setState(() {
               _currentSelectedNode = null;
             });
@@ -160,7 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         initialPosition: _initialOffset,
                         finalPosition: _finalOffset,
                       )
-                    : _initialNodeOffset != null && _finalNodeOffset != null
+                    : _initialNodeOffset != null &&
+                            _finalNodeOffset != null &&
+                            _currentSelectedNode != null
                         ? NodeConnectLinePainter(
                             initialPosition: _initialNodeOffset,
                             finalPosition: _finalNodeOffset,
@@ -211,6 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           onTap: () {
                             setState(() {
+                              _clickOnNode = true;
                               _currentSelectedNode = i;
                             });
                           },
@@ -600,289 +603,237 @@ class _MyHomePageState extends State<MyHomePage> {
                 bottom: 0,
                 right: 0,
                 top: 0,
-                child: Container(
-                  color: Color(0xff282729),
-                  width: 350,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 35,
-                                  width: 70,
-                                  child: RaisedButton(
-                                    color: Color(0xff3C3C3C),
-                                    disabledColor: Colors.grey[850],
-                                    onPressed: _currentSelectedNode != null
-                                        ? () {
-                                            Output output = evaluateNode(
-                                                _indexAndNode[
-                                                    _currentSelectedNode]);
-                                            if (!output.hasError) {
-                                              setState(() {
-                                                _indexAndNode[
-                                                        _currentSelectedNode]
-                                                    .output = output.output;
-                                              });
-                                              BotToast.showAttachedWidget(
-                                                attachedBuilder: (_) => Card(
-                                                  color: Color(0xff1E1F1C),
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              3)),
-                                                  child: Container(
-                                                    height: 50,
-                                                    width: 150,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xff1E1F1C),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              3),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        '${output.output}',
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                duration: Duration(seconds: 5),
-                                                target: Offset(
-                                                    MediaQuery.of(context)
-                                                            .size
-                                                            .width -
-                                                        100,
-                                                    10),
-                                              );
-                                            } else
-                                              BotToast.showAttachedWidget(
-                                                attachedBuilder: (_) => Card(
-                                                  color: Color(0xffd8000c),
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              3)),
-                                                  child: Container(
-                                                    height: 50,
-                                                    width: 250,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xffd8000c),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              3),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        'Some error Occured',
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                duration: Duration(seconds: 5),
-                                                target: Offset(
-                                                    MediaQuery.of(context)
-                                                            .size
-                                                            .width -
-                                                        100,
-                                                    10),
-                                              );
-                                          }
-                                        : null,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(5),
-                                        bottomLeft: Radius.circular(5),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.play_arrow,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 3),
-                                SizedBox(
-                                  height: 35,
-                                  width: 70,
-                                  child: RaisedButton(
-                                    color: Color(0xff3C3C3C),
-                                    onPressed: () {},
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(5),
-                                        bottomRight: Radius.circular(5),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.scatter_plot,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 35,
-                                  width: 70,
-                                  child: RaisedButton(
-                                    color: Color(0xff3C3C3C),
-                                    onPressed: () {},
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(5),
-                                        bottomLeft: Radius.circular(5),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.format_size,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                SizedBox(
-                                  height: 35,
-                                  width: 70,
-                                  child: RaisedButton(
-                                    color: Color(0xff3C3C3C),
-                                    onPressed: () {},
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(5),
-                                        bottomRight: Radius.circular(5),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.settings,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (_currentSelectedNode != null) ...[
-                        SizedBox(height: 10),
-                        Divider(
-                          color: Colors.black45,
-                          thickness: 3,
-                        ),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    color: Color(0xff282729),
+                    width: 350,
+                    child: Column(
+                      children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(left: 5, top: 20),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              Icon(
-                                FontAwesomeIcons.slidersH,
-                                color: Colors.grey,
-                                size: 17,
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 35,
+                                    width: 70,
+                                    child: RaisedButton(
+                                      color: Color(0xff3C3C3C),
+                                      disabledColor: Colors.grey[850],
+                                      onPressed: _currentSelectedNode != null
+                                          ? () {
+                                              Output output = evaluateNode(
+                                                  _indexAndNode[
+                                                      _currentSelectedNode]);
+                                              if (!output.hasError) {
+                                                setState(() {
+                                                  _indexAndNode[
+                                                          _currentSelectedNode]
+                                                      .output = output.output;
+                                                });
+                                                BotToast.showAttachedWidget(
+                                                  attachedBuilder: (_) => Card(
+                                                    color: Color(0xff1E1F1C),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        3)),
+                                                    child: Container(
+                                                      height: 50,
+                                                      width: 150,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xff1E1F1C),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(3),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          '${output.output}',
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  duration:
+                                                      Duration(seconds: 5),
+                                                  target: Offset(
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width -
+                                                          100,
+                                                      10),
+                                                );
+                                              } else
+                                                BotToast.showAttachedWidget(
+                                                  attachedBuilder: (_) => Card(
+                                                    color: Color(0xffd8000c),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        3)),
+                                                    child: Container(
+                                                      height: 50,
+                                                      width: 250,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xffd8000c),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(3),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          'Some error Occured',
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  duration:
+                                                      Duration(seconds: 5),
+                                                  target: Offset(
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width -
+                                                          100,
+                                                      10),
+                                                );
+                                            }
+                                          : null,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(5),
+                                          bottomLeft: Radius.circular(5),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.play_arrow,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 3),
+                                  SizedBox(
+                                    height: 35,
+                                    width: 70,
+                                    child: RaisedButton(
+                                      color: Color(0xff3C3C3C),
+                                      onPressed: () {},
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(5),
+                                          bottomRight: Radius.circular(5),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.scatter_plot,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(width: 20),
-                              Text(
-                                _indexAndNode[_currentSelectedNode]
-                                    .category
-                                    .toString()
-                                    .substring(13)
-                                    .titleCase,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 16,
-                                ),
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 35,
+                                    width: 70,
+                                    child: RaisedButton(
+                                      color: Color(0xff3C3C3C),
+                                      onPressed: () {},
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(5),
+                                          bottomLeft: Radius.circular(5),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.format_size,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  SizedBox(
+                                    height: 35,
+                                    width: 70,
+                                    child: RaisedButton(
+                                      color: Color(0xff3C3C3C),
+                                      onPressed: () {},
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(5),
+                                          bottomRight: Radius.circular(5),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.settings,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Text(
-                                  'Name',
+                        if (_currentSelectedNode != null) ...[
+                          SizedBox(height: 10),
+                          Divider(
+                            color: Colors.black45,
+                            thickness: 3,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 5, top: 20),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.slidersH,
+                                  color: Colors.grey,
+                                  size: 17,
+                                ),
+                                SizedBox(width: 20),
+                                Text(
+                                  _indexAndNode[_currentSelectedNode]
+                                      .category
+                                      .toString()
+                                      .substring(13)
+                                      .titleCase,
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.grey,
                                     fontSize: 16,
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Container(
-                                  color: Color(0xff111111),
-                                  width: 200,
-                                  height: 30,
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        top: -10,
-                                        left: 10,
-                                        right: 10,
-                                        child: TextFormField(
-                                          initialValue:
-                                              '${_indexAndNode[_currentSelectedNode].type.toString().substring(9).titleCase}',
-                                          readOnly: !_indexAndNode[
-                                                  _currentSelectedNode]
-                                              .isEditable,
-                                          cursorColor: Colors.white,
-                                          decoration: InputDecoration.collapsed(
-                                              border: InputBorder.none,
-                                              hintStyle: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.white,
-                                                  decoration:
-                                                      TextDecoration.none),
-                                              hintText: 'Enter a name'),
-                                          onFieldSubmitted: (s) {
-                                            // TODO: Update name
-                                          },
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        for (var i = 1;
-                            i <= _indexAndNode[_currentSelectedNode].noOfInputs;
-                            i++)
                           Padding(
                             padding: EdgeInsets.only(top: 20),
                             child: Row(
@@ -891,7 +842,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Text(
-                                    'Input $i',
+                                    'Name',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -911,61 +862,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                           left: 10,
                                           right: 10,
                                           child: TextFormField(
-                                            initialValue: i == 1
-                                                ? _indexAndNode[_currentSelectedNode]
-                                                            .input['First']
-                                                            .toString() ==
-                                                        'null'
-                                                    ? ''
-                                                    : _indexAndNode[
-                                                            _currentSelectedNode]
-                                                        .input['First']
-                                                        .toString()
-                                                : _indexAndNode[_currentSelectedNode]
-                                                            .input['Second']
-                                                            .toString() ==
-                                                        'null'
-                                                    ? ''
-                                                    : _indexAndNode[
-                                                            _currentSelectedNode]
-                                                        .input['Second']
-                                                        .toString(),
+                                            initialValue:
+                                                '${_indexAndNode[_currentSelectedNode].type.toString().substring(9).titleCase}',
+                                            readOnly: !_indexAndNode[
+                                                    _currentSelectedNode]
+                                                .isEditable,
                                             cursorColor: Colors.white,
-                                            decoration: InputDecoration.collapsed(
-                                                border: InputBorder.none,
-                                                hintStyle: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.white,
-                                                    decoration:
-                                                        TextDecoration.none),
-                                                hintText:
-                                                    'Enter a ${_indexAndNode[_currentSelectedNode].category.toString().substring(13)}'),
+                                            decoration:
+                                                InputDecoration.collapsed(
+                                                    border: InputBorder.none,
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.white,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .none),
+                                                    hintText: 'Enter a name'),
                                             onFieldSubmitted: (s) {
-                                              if (i == 1) {
-                                                _indexAndNode[
-                                                        _currentSelectedNode]
-                                                    .input = Map.fromEntries([
-                                                  MapEntry('First', s),
-                                                  MapEntry(
-                                                      'Second',
-                                                      _indexAndNode[
-                                                              _currentSelectedNode]
-                                                          .input['Second'])
-                                                ]);
-                                                setState(() {});
-                                              } else {
-                                                _indexAndNode[
-                                                        _currentSelectedNode]
-                                                    .input = Map.fromEntries([
-                                                  MapEntry(
-                                                      'First',
-                                                      _indexAndNode[
-                                                              _currentSelectedNode]
-                                                          .input['First']),
-                                                  MapEntry('Second', s)
-                                                ]);
-                                                setState(() {});
-                                              }
+                                              // TODO: Update name
                                             },
                                             style: TextStyle(
                                               fontSize: 15,
@@ -981,8 +895,113 @@ class _MyHomePageState extends State<MyHomePage> {
                               ],
                             ),
                           ),
+                          for (var i = 1;
+                              i <=
+                                  _indexAndNode[_currentSelectedNode]
+                                      .noOfInputs;
+                              i++)
+                            Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      'Input $i',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: Container(
+                                      color: Color(0xff111111),
+                                      width: 200,
+                                      height: 30,
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            top: -10,
+                                            left: 10,
+                                            right: 10,
+                                            child: TextFormField(
+                                              initialValue: i == 1
+                                                  ? _indexAndNode[_currentSelectedNode]
+                                                              .input['First']
+                                                              .toString() ==
+                                                          'null'
+                                                      ? ''
+                                                      : _indexAndNode[
+                                                              _currentSelectedNode]
+                                                          .input['First']
+                                                          .toString()
+                                                  : _indexAndNode[_currentSelectedNode]
+                                                              .input['Second']
+                                                              .toString() ==
+                                                          'null'
+                                                      ? ''
+                                                      : _indexAndNode[
+                                                              _currentSelectedNode]
+                                                          .input['Second']
+                                                          .toString(),
+                                              cursorColor: Colors.white,
+                                              decoration: InputDecoration.collapsed(
+                                                  border: InputBorder.none,
+                                                  hintStyle: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.white,
+                                                      decoration:
+                                                          TextDecoration.none),
+                                                  hintText:
+                                                      'Enter a ${_indexAndNode[_currentSelectedNode].category.toString().substring(13)}'),
+                                              onFieldSubmitted: (s) {
+                                                if (i == 1) {
+                                                  _indexAndNode[
+                                                          _currentSelectedNode]
+                                                      .input = Map.fromEntries([
+                                                    MapEntry('First', s),
+                                                    MapEntry(
+                                                        'Second',
+                                                        _indexAndNode[
+                                                                _currentSelectedNode]
+                                                            .input['Second'])
+                                                  ]);
+                                                  setState(() {});
+                                                } else {
+                                                  _indexAndNode[
+                                                          _currentSelectedNode]
+                                                      .input = Map.fromEntries([
+                                                    MapEntry(
+                                                        'First',
+                                                        _indexAndNode[
+                                                                _currentSelectedNode]
+                                                            .input['First']),
+                                                    MapEntry('Second', s)
+                                                  ]);
+                                                  setState(() {});
+                                                }
+                                              },
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.white,
+                                                decoration: TextDecoration.none,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
               ),
