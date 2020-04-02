@@ -46,10 +46,9 @@ Output _convertNodesToCode(Node node) {
       else
         return Output(hasError: true, output: null, outputType: null);
     } else if (node.type == NodeType.RandomBool) {
-      node.output = Random().nextBool();
       return Output(
           hasError: false,
-          output: node.output['Output'],
+          output: Random().nextBool(),
           outputType: NodeCategory.int);
     }
   }

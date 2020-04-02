@@ -46,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Offset _initialNodeOffset;
   Offset _finalNodeOffset;
   Offset tmpLocation;
-  Node _nodeHovered;
 
   @override
   Widget build(BuildContext context) {
@@ -113,13 +112,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       initialPosition: _initialOffset,
                       finalPosition: _finalOffset,
                     )
-                  : null,
-              painter: _initialNodeOffset != null && _finalNodeOffset != null
-                  ? NodeConnectLinePainter(
-                      initialPosition: _initialNodeOffset,
-                      finalPosition: _finalNodeOffset,
-                      color: _indexAndNode[_currentSelectedNode].titleColor)
-                  : null,
+                  : _initialNodeOffset != null && _finalNodeOffset != null
+                      ? NodeConnectLinePainter(
+                          initialPosition: _initialNodeOffset,
+                          finalPosition: _finalNodeOffset,
+                          color: _indexAndNode[_currentSelectedNode].titleColor)
+                      : null,
               child: Stack(
                 children: <Widget>[
                   for (var i = 0; i < _noOfNodes; i++)
@@ -129,7 +127,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: GestureDetector(
                         onDoubleTap: () {
                           Output output = evaluateNode(_indexAndNode[i]);
-                          if (!output.hasError)
+                          if (!output.hasError) {
+                            setState(() {
+                              _indexAndNode[i].output = output.output;
+                            });
                             BotToast.showAttachedWidget(
                               attachedBuilder: (_) => Card(
                                 color: Color(0xff1E1F1C),
@@ -158,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               target: Offset(
                                   MediaQuery.of(context).size.width - 100, 10),
                             );
-                          else
+                          } else
                             BotToast.showAttachedWidget(
                               attachedBuilder: (_) => Card(
                                 color: Color(0xffd8000c),
@@ -244,13 +245,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                   height: 30,
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceAround,
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
                                         child: Icon(
                                           FontAwesomeIcons.slidersH,
-                                          color: Colors.black38,
+                                          color: Colors.grey,
                                           size: 15,
                                         ),
                                       ),
@@ -259,15 +260,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                         child: Text(
                                           _indexAndNode[i].name,
                                           style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 5),
-                                        child: Icon(
-                                          Icons.edit,
-                                          color: Colors.grey,
-                                          size: 20,
                                         ),
                                       ),
                                     ],
@@ -343,13 +335,115 @@ class _MyHomePageState extends State<MyHomePage> {
                                           ),
                                         ),
                                         SizedBox(width: 5),
-                                        Text(
-                                          j == 1
-                                              ? "${_indexAndNode[i].input['First']}"
-                                              : "${_indexAndNode[i].input['Second']}",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white),
+                                        InkWell(
+                                          onDoubleTap: () {
+                                            BotToast.showCustomNotification(
+                                              duration: Duration(seconds: 10),
+                                              align: Alignment.topCenter,
+                                              toastBuilder: (s) => Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8),
+                                                child: Card(
+                                                  color: Color(0xff1E1F1C),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            3),
+                                                  ),
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 150,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              3),
+                                                      color: Color(0xff1E1F1C),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 7,
+                                                              right: 10),
+                                                      child: TextField(
+                                                        autofocus: true,
+                                                        autocorrect: true,
+                                                        keyboardType:
+                                                            TextInputType.text,
+                                                        cursorColor:
+                                                            Colors.white,
+                                                        decoration: InputDecoration
+                                                            .collapsed(
+                                                                border:
+                                                                    InputBorder
+                                                                        .none,
+                                                                hintStyle: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    color: Colors
+                                                                        .white),
+                                                                hintText:
+                                                                    'Enter a ${_indexAndNode[i].category.toString().substring(13)}'),
+                                                        onChanged: (s) {
+                                                          if (j == 1) {
+                                                            _indexAndNode[i]
+                                                                    .input =
+                                                                Map.fromEntries([
+                                                              MapEntry(
+                                                                  'First', s),
+                                                              MapEntry(
+                                                                  'Second',
+                                                                  _indexAndNode[
+                                                                              i]
+                                                                          .input[
+                                                                      'Second']),
+                                                            ]);
+                                                            setState(() {});
+                                                          } else {
+                                                            _indexAndNode[i]
+                                                                    .input =
+                                                                Map.fromEntries([
+                                                              MapEntry(
+                                                                  'First',
+                                                                  _indexAndNode[
+                                                                              i]
+                                                                          .input[
+                                                                      'First']),
+                                                              MapEntry(
+                                                                  'Second', s),
+                                                            ]);
+                                                            setState(() {});
+                                                          }
+                                                        },
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          color: Colors.white,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .none,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            j == 1
+                                                ? "${_indexAndNode[i].input['First']}"
+                                                            .length <=
+                                                        4
+                                                    ? "${_indexAndNode[i].input['First']}"
+                                                    : "${_indexAndNode[i].input['First'].substring(0, 4)}..."
+                                                : "${_indexAndNode[i].input['Second']}"
+                                                            .length <=
+                                                        4
+                                                    ? "${_indexAndNode[i].input['Second']}"
+                                                    : "${_indexAndNode[i].input['Second'].substring(0, 4)}...",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.white),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -365,9 +459,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          k == 1
-                                              ? "${_indexAndNode[i].output['First']}"
-                                              : "${_indexAndNode[i].output['Second']}",
+                                          "${_indexAndNode[i].output['Output']}"
+                                                      .length <=
+                                                  4
+                                              ? "${_indexAndNode[i].output['Output']}"
+                                              : "${_indexAndNode[i].output['Output'].toString().substring(0, 4)}...",
                                           style: TextStyle(
                                               fontSize: 14,
                                               color: Colors.white),
@@ -537,6 +633,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+            //  if(_showInputDialog)
             Positioned(
               bottom: 10,
               right: 10,
