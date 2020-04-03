@@ -620,115 +620,129 @@ class _MyHomePageState extends State<MyHomePage> {
                                   SizedBox(
                                     height: 35,
                                     width: 70,
-                                    child: RaisedButton(
-                                      color: Color(0xff3C3C3C),
-                                      disabledColor: Colors.grey[850],
-                                      onPressed: _currentSelectedNode != null
-                                          ? () {
-                                              Output output = evaluateNode(
-                                                  _indexAndNode[
-                                                      _currentSelectedNode]);
-                                              if (!output.hasError) {
-                                                setState(() {
-                                                  _indexAndNode[
-                                                          _currentSelectedNode]
-                                                      .output = output.output;
-                                                });
-                                                BotToast.showAttachedWidget(
-                                                  attachedBuilder: (_) => Card(
-                                                    color: Color(0xff1E1F1C),
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        3)),
-                                                    child: Container(
-                                                      height: 50,
-                                                      width: 150,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xff1E1F1C),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(3),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          '${output.output}',
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: Colors.white,
+                                    child: Tooltip(
+                                      waitDuration: _currentSelectedNode != null
+                                          ? Duration(milliseconds: 600)
+                                          : Duration(seconds: 100),
+                                      message: 'Run selected node',
+                                      child: RaisedButton(
+                                        color: Color(0xff3C3C3C),
+                                        disabledColor: Colors.grey[850],
+                                        onPressed: _currentSelectedNode != null
+                                            ? () {
+                                                Output output = evaluateNode(
+                                                    _indexAndNode[
+                                                        _currentSelectedNode]);
+                                                if (!output.hasError) {
+                                                  setState(() {
+                                                    _indexAndNode[
+                                                            _currentSelectedNode]
+                                                        .output = output.output;
+                                                  });
+                                                  BotToast.showAttachedWidget(
+                                                    attachedBuilder: (_) =>
+                                                        Card(
+                                                      color: Color(0xff1E1F1C),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          3)),
+                                                      child: Container(
+                                                        height: 50,
+                                                        width: 150,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0xff1E1F1C),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(3),
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            '${output.output}',
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  duration:
-                                                      Duration(seconds: 5),
-                                                  target: Offset(
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width -
-                                                          100,
-                                                      10),
-                                                );
-                                              } else
-                                                BotToast.showAttachedWidget(
-                                                  attachedBuilder: (_) => Card(
-                                                    color: Color(0xffd8000c),
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        3)),
-                                                    child: Container(
-                                                      height: 50,
-                                                      width: 250,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xffd8000c),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(3),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'Some error Occured',
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: Colors.white,
+                                                    duration:
+                                                        Duration(seconds: 5),
+                                                    target: Offset(
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            100,
+                                                        10),
+                                                  );
+                                                } else
+                                                  BotToast.showAttachedWidget(
+                                                    attachedBuilder: (_) =>
+                                                        Card(
+                                                      color: Color(0xffd8000c),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          3)),
+                                                      child: Container(
+                                                        height: 50,
+                                                        width: 250,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0xffd8000c),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(3),
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Some error Occured',
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  duration:
-                                                      Duration(seconds: 5),
-                                                  target: Offset(
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width -
-                                                          100,
-                                                      10),
-                                                );
-                                            }
-                                          : null,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(5),
-                                          bottomLeft: Radius.circular(5),
+                                                    duration:
+                                                        Duration(seconds: 5),
+                                                    target: Offset(
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            100,
+                                                        10),
+                                                  );
+                                              }
+                                            : null,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(5),
+                                            bottomLeft: Radius.circular(5),
+                                          ),
                                         ),
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.play_arrow,
-                                          color: Colors.white,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.play_arrow,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -737,22 +751,28 @@ class _MyHomePageState extends State<MyHomePage> {
                                   SizedBox(
                                     height: 35,
                                     width: 70,
-                                    child: RaisedButton(
-                                      color: Color(0xff3C3C3C),
-                                      disabledColor: Colors.grey[850],
-                                      onPressed: _indexAndNode.length > 0
-                                          ? () {}
-                                          : null,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(5),
-                                          bottomRight: Radius.circular(5),
+                                    child: Tooltip(
+                                      waitDuration: _indexAndNode.length > 0
+                                          ? Duration(milliseconds: 600)
+                                          : Duration(seconds: 100),
+                                      message: 'Run all nodes in graph',
+                                      child: RaisedButton(
+                                        color: Color(0xff3C3C3C),
+                                        disabledColor: Colors.grey[850],
+                                        onPressed: _indexAndNode.length > 0
+                                            ? () {}
+                                            : null,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(5),
+                                            bottomRight: Radius.circular(5),
+                                          ),
                                         ),
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.scatter_plot,
-                                          color: Colors.white,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.scatter_plot,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -764,19 +784,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                   SizedBox(
                                     height: 35,
                                     width: 70,
-                                    child: RaisedButton(
-                                      color: Color(0xff3C3C3C),
-                                      onPressed: () {},
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(5),
-                                          bottomLeft: Radius.circular(5),
+                                    child: Tooltip(
+                                      waitDuration: Duration(milliseconds: 600),
+                                      message: 'Change fonts',
+                                      child: RaisedButton(
+                                        color: Color(0xff3C3C3C),
+                                        onPressed: () {},
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
                                         ),
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.format_size,
-                                          color: Colors.white,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.format_size,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -785,19 +807,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                   SizedBox(
                                     height: 35,
                                     width: 70,
-                                    child: RaisedButton(
-                                      color: Color(0xff3C3C3C),
-                                      onPressed: () {},
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(5),
-                                          bottomRight: Radius.circular(5),
+                                    child: Tooltip(
+                                      waitDuration: Duration(milliseconds: 600),
+                                      message: 'Open settings',
+                                      child: RaisedButton(
+                                        color: Color(0xff3C3C3C),
+                                        onPressed: () {},
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
                                         ),
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.settings,
-                                          color: Colors.white,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.settings,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -814,7 +838,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             thickness: 3,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 5, top: 20),
+                            padding: EdgeInsets.only(left: 10, top: 20),
                             child: Row(
                               children: <Widget>[
                                 Icon(
@@ -843,7 +867,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10),
+                                  padding: const EdgeInsets.only(left: 17),
                                   child: Text(
                                     'Name',
                                     style: TextStyle(
@@ -910,7 +934,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10),
+                                    padding: const EdgeInsets.only(left: 17),
                                     child: Text(
                                       'Input $i',
                                       style: TextStyle(
