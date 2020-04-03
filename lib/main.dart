@@ -104,7 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
         onTapDown: (details) {
-          if (_currentSelectedNode != null) {
+          if (_currentSelectedNode != null &&
+              (details.globalPosition.dx <
+                  MediaQuery.of(context).size.width - 350)) {
             setState(() {
               _currentSelectedNode = null;
             });
@@ -179,6 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 MediaQuery.of(context).size.width - 350) {
                               setState(() {
                                 tmpLocation = details.globalPosition;
+                                _currentSelectedNode = i;
                               });
                               Offset offset = Offset(
                                   _indexAndNode[i].nodePosition.dx +
