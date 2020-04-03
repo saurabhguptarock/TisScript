@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tis_script/model/model.dart';
 
-Map<NodeCategory, Color> nodeColor = {
+final Map<NodeCategory, Color> nodeColor = {
   NodeCategory.int: Color(0xff1DDCA9),
   NodeCategory.double: Color(0xff9CF742),
   NodeCategory.bool: Color(0xff8C0000),
@@ -62,7 +62,7 @@ enum NodeType {
   None,
 }
 
-List<Node> availableNodes = [
+final List<Node> availableNodes = [
   // * Zero Input One Output
   RandomBool(),
   ColorPicker(),
