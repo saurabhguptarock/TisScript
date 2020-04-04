@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static Offset tmpLocation;
   static final FocusNode _focusNode = FocusNode();
 
+// TODO: Fix adding only single node of each type.
   @override
   Widget build(BuildContext context) {
     FocusScope.of(context).requestFocus(_focusNode);
@@ -373,7 +374,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                           const SizedBox(width: 5),
                                           InkWell(
                                             child: Text(
-                                              j == 1 ? 'Input 1' : 'Input 2',
+                                              j == 1
+                                                  ? _indexAndNode[i]
+                                                              .noOfInputs ==
+                                                          1
+                                                      ? 'Input'
+                                                      : 'Input 1'
+                                                  : 'Input 2',
                                               style: const TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.white),
@@ -918,6 +925,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               ],
                             ),
                           ),
+                          if (_indexAndNode[_currentSelectedNode].type ==
+                              NodeType.ColorPicker)
+                            SizedBox(
+                              width: 300,
+                              height: 300,
+                            ),
                           for (var i = 1;
                               i <=
                                   _indexAndNode[_currentSelectedNode]
@@ -932,7 +945,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 17),
                                     child: Text(
-                                      'Input $i',
+                                      _indexAndNode[_currentSelectedNode]
+                                                  .noOfInputs ==
+                                              1
+                                          ? 'Input'
+                                          : 'Input $i',
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,
