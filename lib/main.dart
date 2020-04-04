@@ -39,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
   static final List<Color> _hovercolor =
       List.generate(availableNodes.length, (index) => Colors.transparent);
   static bool _showRightClickMenu = false;
-  static bool _showNodeMenu = false;
   static final Map<int, Node> _indexAndNode = {};
   static int _noOfNodes = 0;
   static int _currentSelectedNode;
@@ -85,25 +84,6 @@ class _MyHomePageState extends State<MyHomePage> {
           if (!_showRightClickMenu &&
               details.globalPosition.dx <
                   MediaQuery.of(context).size.width - 350) {
-            for (var i = 0; i < _noOfNodes; i++) {
-              if (details.globalPosition.dx >
-                      _indexAndNode[i].nodePosition.dx &&
-                  details.globalPosition.dx <
-                      _indexAndNode[i].nodePosition.dx + 150 &&
-                  details.globalPosition.dy >
-                      _indexAndNode[i].nodePosition.dy &&
-                  details.globalPosition.dy <
-                      _indexAndNode[i].nodePosition.dy + 100) {
-                setState(() {
-                  _showRightClickMenu = !_showRightClickMenu;
-                  _showNodeMenu = !_showNodeMenu;
-                });
-              } else {
-                setState(() {
-                  _showNodeMenu = false;
-                });
-              }
-            }
             setState(() {
               top = details.globalPosition.dy;
               left = details.globalPosition.dx;
@@ -116,25 +96,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 (details.globalPosition.dx - left) > 0 &&
                 (details.globalPosition.dy - top) < 350 &&
                 (details.globalPosition.dy - top) > 0)) {
-              for (var i = 0; i < _noOfNodes; i++) {
-                if (details.globalPosition.dx >
-                        _indexAndNode[i].nodePosition.dx &&
-                    details.globalPosition.dx <
-                        _indexAndNode[i].nodePosition.dx + 150 &&
-                    details.globalPosition.dy >
-                        _indexAndNode[i].nodePosition.dy &&
-                    details.globalPosition.dy <
-                        _indexAndNode[i].nodePosition.dy + 100) {
-                  setState(() {
-                    _showRightClickMenu = !_showRightClickMenu;
-                    _showNodeMenu = !_showNodeMenu;
-                  });
-                } else {
-                  setState(() {
-                    _showNodeMenu = false;
-                  });
-                }
-              }
               setState(() {
                 top = details.globalPosition.dy;
                 left = details.globalPosition.dx;
@@ -621,19 +582,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                ),
-              if (_showNodeMenu)
-                Positioned(
-                  top: top,
-                  left: left,
-                  child: Container(
-                    width: 200,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(0xff232323).withOpacity(0.9),
-                      borderRadius: BorderRadius.circular(1),
                     ),
                   ),
                 ),
