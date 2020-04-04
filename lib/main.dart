@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static double left = 0;
   static final List<Color> _hovercolor =
       List.generate(availableNodes.length, (index) => Colors.transparent);
+  static bool _showRightClickMenu = false;
   static bool _showNodeMenu = false;
   static final Map<int, Node> _indexAndNode = {};
   static int _noOfNodes = 0;
@@ -81,21 +82,59 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       child: GestureDetector(
         onSecondaryTapDown: (details) {
-          if (!_showNodeMenu &&
+          if (!_showRightClickMenu &&
               details.globalPosition.dx <
                   MediaQuery.of(context).size.width - 350) {
+            for (var i = 0; i < _noOfNodes; i++) {
+              if (details.globalPosition.dx >
+                      _indexAndNode[i].nodePosition.dx &&
+                  details.globalPosition.dx <
+                      _indexAndNode[i].nodePosition.dx + 150 &&
+                  details.globalPosition.dy >
+                      _indexAndNode[i].nodePosition.dy &&
+                  details.globalPosition.dy <
+                      _indexAndNode[i].nodePosition.dy + 100) {
+                setState(() {
+                  _showRightClickMenu = !_showRightClickMenu;
+                  _showNodeMenu = !_showNodeMenu;
+                });
+              } else {
+                setState(() {
+                  _showNodeMenu = false;
+                });
+              }
+            }
             setState(() {
               top = details.globalPosition.dy;
               left = details.globalPosition.dx;
-              _showNodeMenu = !_showNodeMenu;
+              _showRightClickMenu = !_showRightClickMenu;
             });
-          } else if (_showNodeMenu &&
+          } else if (_showRightClickMenu &&
               details.globalPosition.dx <
                   MediaQuery.of(context).size.width - 350) {
             if (!((details.globalPosition.dx - left) < 220 &&
                 (details.globalPosition.dx - left) > 0 &&
                 (details.globalPosition.dy - top) < 350 &&
                 (details.globalPosition.dy - top) > 0)) {
+              for (var i = 0; i < _noOfNodes; i++) {
+                if (details.globalPosition.dx >
+                        _indexAndNode[i].nodePosition.dx &&
+                    details.globalPosition.dx <
+                        _indexAndNode[i].nodePosition.dx + 150 &&
+                    details.globalPosition.dy >
+                        _indexAndNode[i].nodePosition.dy &&
+                    details.globalPosition.dy <
+                        _indexAndNode[i].nodePosition.dy + 100) {
+                  setState(() {
+                    _showRightClickMenu = !_showRightClickMenu;
+                    _showNodeMenu = !_showNodeMenu;
+                  });
+                } else {
+                  setState(() {
+                    _showNodeMenu = false;
+                  });
+                }
+              }
               setState(() {
                 top = details.globalPosition.dy;
                 left = details.globalPosition.dx;
@@ -116,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
               (details.globalPosition.dy - top) < 350 &&
               (details.globalPosition.dy - top) > 0))
             setState(() {
-              _showNodeMenu = false;
+              _showRightClickMenu = false;
             });
         },
         onPanDown: (details) {
@@ -131,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
               (details.globalPosition.dy - top) < 350 &&
               (details.globalPosition.dy - top) > 0)) {
             setState(() {
-              _showNodeMenu = false;
+              _showRightClickMenu = false;
             });
           }
         },
@@ -265,7 +304,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                           padding:
                                               const EdgeInsets.only(top: 3),
                                           child: Text(
-                                            _indexAndNode[i].name,
+                                            _indexAndNode[i].name.length <= 18
+                                                ? _indexAndNode[i].name
+                                                : _indexAndNode[i]
+                                                        .name
+                                                        .substring(0, 18) +
+                                                    '...',
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),
@@ -368,19 +412,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                           const SizedBox(width: 5),
                                           InkWell(
                                             child: Text(
-                                              j == 1
-                                                  ? "${_indexAndNode[i].input['First']}"
-                                                              .length <=
-                                                          4
-                                                      ? "${_indexAndNode[i].input['First']}"
-                                                      : "${_indexAndNode[i].input['First'].substring(0, 4)}..."
-                                                  : "${_indexAndNode[i].input['Second']}"
-                                                              .length <=
-                                                          4
-                                                      ? "${_indexAndNode[i].input['Second']}"
-                                                      : "${_indexAndNode[i].input['Second'].substring(0, 4)}...",
+                                              j == 1 ? 'Input 1' : 'Input 2',
                                               style: const TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize: 12,
                                                   color: Colors.white),
                                             ),
                                           ),
@@ -398,13 +432,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                             CrossAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
-                                            "${_indexAndNode[i].output['Output']}"
-                                                        .length <=
-                                                    4
-                                                ? "${_indexAndNode[i].output['Output']}"
-                                                : "${_indexAndNode[i].output['Output'].toString().substring(0, 4)}...",
+                                            'Output',
                                             style: const TextStyle(
-                                                fontSize: 14,
+                                                fontSize: 12,
                                                 color: Colors.white),
                                           ),
                                           const SizedBox(width: 5),
@@ -494,7 +524,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              if (_showNodeMenu)
+              if (_showRightClickMenu)
                 Positioned(
                   left: left,
                   top: top,
@@ -555,7 +585,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ? InkWell(
                                     onTap: () {
                                       setState(() {
-                                        _showNodeMenu = !_showNodeMenu;
+                                        _showRightClickMenu =
+                                            !_showRightClickMenu;
                                         _indexAndNode[_noOfNodes] =
                                             availableNodes[i]
                                               ..nodePosition =
@@ -590,6 +621,19 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                ),
+              if (_showNodeMenu)
+                Positioned(
+                  top: top,
+                  left: left,
+                  child: Container(
+                    width: 200,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Color(0xff232323).withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(1),
                     ),
                   ),
                 ),
