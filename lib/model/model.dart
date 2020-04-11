@@ -11,6 +11,8 @@ class Node {
   final double width = 150;
   final Color titleColor = Colors.orange;
   final bool isEditable = false;
+  final String description =
+      'A visual node based programming language for Dart User';
   Map<String, dynamic> inputLocal = {};
   Map<String, dynamic> outputLocal = {};
   Offset nodePositionLocal = Offset.zero;

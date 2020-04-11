@@ -116,6 +116,10 @@ class AddInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
+
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -136,6 +140,9 @@ class AddDouble extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.double;
 
@@ -156,6 +163,9 @@ class AddString extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.String;
 
@@ -176,6 +186,9 @@ class SubtractInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -196,6 +209,9 @@ class SubtractDouble extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.double;
 
@@ -216,6 +232,9 @@ class MultiplyInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -235,6 +254,10 @@ class MultiplyDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
+
+  // TODO: Add description of node
+  @override
+  String get description => '';
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -256,6 +279,10 @@ class DivideFullInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
+
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -275,6 +302,10 @@ class DivideFullDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
+
+  // TODO: Add description of node
+  @override
+  String get description => '';
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -296,6 +327,9 @@ class DivideQuestionInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -315,6 +349,10 @@ class DivideQuestionDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
+
+  // TODO: Add description of node
+  @override
+  String get description => '';
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -336,6 +374,9 @@ class DivideRemainderInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -356,6 +397,9 @@ class DivideRemainderDouble extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.double;
 
@@ -379,6 +423,9 @@ class NotBool extends Node {
   @override
   double get height => 80;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.bool;
 
@@ -402,6 +449,9 @@ class IncrementInt extends Node {
   @override
   double get height => 80;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -424,6 +474,10 @@ class IncrementDouble extends Node {
 
   @override
   double get height => 80;
+
+  // TODO: Add description of node
+  @override
+  String get description => '';
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -448,6 +502,9 @@ class DecrementInt extends Node {
   @override
   double get height => 80;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -471,6 +528,10 @@ class DecrementDouble extends Node {
   @override
   double get height => 80;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
+
   @override
   NodeCategory get category => NodeCategory.double;
 
@@ -491,6 +552,9 @@ class GreaterThanInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -510,6 +574,10 @@ class GreaterThanDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
+
+  // TODO: Add description of node
+  @override
+  String get description => '';
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -531,6 +599,9 @@ class GreaterThanOrEqualToInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -571,6 +642,9 @@ class LessThanInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -590,6 +664,10 @@ class LessThanDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
+
+  // TODO: Add description of node
+  @override
+  String get description => '';
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -611,6 +689,9 @@ class LessThanOrEqualToInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -630,6 +711,10 @@ class LessThanOrEqualToDouble extends Node {
 
   @override
   int get noOfOutputs => 1;
+
+  // TODO: Add description of node
+  @override
+  String get description => '';
 
   @override
   NodeCategory get category => NodeCategory.double;
@@ -651,6 +736,9 @@ class EqualityInt extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -671,6 +759,9 @@ class EqualityDouble extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.double;
 
@@ -690,6 +781,10 @@ class EqualityString extends Node {
 
   @override
   int get noOfOutputs => 1;
+
+  // TODO: Add description of node
+  @override
+  String get description => '';
 
   @override
   NodeCategory get category => NodeCategory.String;
@@ -711,6 +806,10 @@ class EqualityBool extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
+
   @override
   NodeCategory get category => NodeCategory.bool;
 
@@ -730,6 +829,10 @@ class NotEqualInt extends Node {
 
   @override
   int get noOfOutputs => 1;
+
+  // TODO: Add description of node
+  @override
+  String get description => '';
 
   @override
   NodeCategory get category => NodeCategory.int;
@@ -751,6 +854,10 @@ class NotEqualDouble extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
+
   @override
   NodeCategory get category => NodeCategory.double;
 
@@ -771,6 +878,9 @@ class NotEqualString extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.String;
 
@@ -811,6 +921,9 @@ class RandomIntInRange extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.int;
 
@@ -831,6 +944,9 @@ class RandomDoubleInRange extends Node {
   @override
   int get noOfOutputs => 1;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.double;
 
@@ -854,6 +970,9 @@ class RandomBool extends Node {
   @override
   double get height => 80;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.bool;
 
@@ -877,6 +996,9 @@ class ColorPicker extends Node {
   @override
   double get height => 80;
 
+  // TODO: Add description of node
+  @override
+  String get description => '';
   @override
   NodeCategory get category => NodeCategory.Color;
 

@@ -1,6 +1,9 @@
 import 'dart:math';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:tis_script/model/model.dart';
 import 'package:tis_script/nodes.dart';
+import 'package:universal_html/html.dart' as html;
 
 Output evaluateNode(Node node) {
   return _convertNodesToCode(node);
@@ -393,4 +396,49 @@ Output _convertNodesToCode(Node node) {
     }
   }
   return Output(hasError: true, output: null, outputType: null);
+}
+
+class MoveCursor extends MouseRegion {
+  static final appContainer =
+      html.window.document.getElementById('app-container');
+
+  MoveCursor({Widget child})
+      : super(
+            onHover: (PointerHoverEvent evt) {
+              appContainer.style.cursor = 'move';
+            },
+            onExit: (PointerExitEvent evt) {
+              appContainer.style.cursor = 'default';
+            },
+            child: child);
+}
+
+class CrosshairCursor extends MouseRegion {
+  static final appContainer =
+      html.window.document.getElementById('app-container');
+
+  CrosshairCursor({Widget child})
+      : super(
+            onHover: (PointerHoverEvent evt) {
+              appContainer.style.cursor = 'crosshair';
+            },
+            onExit: (PointerExitEvent evt) {
+              appContainer.style.cursor = 'default';
+            },
+            child: child);
+}
+
+class DefaultCursor extends MouseRegion {
+  static final appContainer =
+      html.window.document.getElementById('app-container');
+
+  DefaultCursor({Widget child})
+      : super(
+            onHover: (PointerHoverEvent evt) {
+              appContainer.style.cursor = 'default';
+            },
+            onExit: (PointerExitEvent evt) {
+              appContainer.style.cursor = 'default';
+            },
+            child: child);
 }

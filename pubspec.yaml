@@ -14,6 +14,9 @@ dependencies:
   bot_toast: ^2.4.0
   font_awesome_flutter: ^8.8.1
   recase: ^3.0.0
+  stagexl: ^1.4.4
+  universal_html: ^1.2.2
+  undo: ^1.0.1+3
 
 dev_dependencies:
   flutter_test:

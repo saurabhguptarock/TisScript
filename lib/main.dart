@@ -7,6 +7,8 @@ import 'package:tis_script/model/model.dart';
 import 'package:tis_script/nodes.dart';
 import 'package:tis_script/shared/shared.dart';
 import 'package:recase/recase.dart';
+import 'package:stagexl/stagexl.dart' as stagexl;
+import 'package:undo/undo.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static Offset _finalNodeOffset;
   static Offset tmpLocation;
   static final FocusNode _focusNode = FocusNode();
+  static final ChangeStack changes = ChangeStack();
 
 // TODO: Fix adding only single node of each type.
   @override
@@ -176,140 +179,272 @@ class _MyHomePageState extends State<MyHomePage> {
                       Positioned(
                         left: _indexAndNode[i].nodePosition.dx,
                         top: _indexAndNode[i].nodePosition.dy,
-                        child: GestureDetector(
-                          onPanDown: (details) {
-                            if (details.globalPosition.dx <
-                                MediaQuery.of(context).size.width - 350) {
+                        child: MoveCursor(
+                          child: GestureDetector(
+                            onPanDown: (details) {
+                              if (details.globalPosition.dx <
+                                  MediaQuery.of(context).size.width - 350) {
+                                setState(() {
+                                  tmpLocation = details.globalPosition;
+                                  _currentSelectedNode = i;
+                                });
+                                Offset offset = Offset(
+                                    _indexAndNode[i].nodePosition.dx +
+                                        details.globalPosition.dx -
+                                        tmpLocation.dx,
+                                    _indexAndNode[i].nodePosition.dy +
+                                        details.globalPosition.dy -
+                                        tmpLocation.dy);
+                                setState(() {
+                                  _indexAndNode[i].nodePosition = offset;
+                                  tmpLocation = details.globalPosition;
+                                });
+                              }
+                            },
+                            onPanUpdate: (details) {
+                              if (details.globalPosition.dx <
+                                  MediaQuery.of(context).size.width - 350) {
+                                Offset offset = Offset(
+                                    _indexAndNode[i].nodePosition.dx +
+                                        details.globalPosition.dx -
+                                        tmpLocation.dx,
+                                    _indexAndNode[i].nodePosition.dy +
+                                        details.globalPosition.dy -
+                                        tmpLocation.dy);
+                                setState(() {
+                                  _indexAndNode[i].nodePosition = offset;
+                                  tmpLocation = details.globalPosition;
+                                });
+                              }
+                            },
+                            onPanEnd: (details) {
+                              changes.add(Change.property(
+                                  _indexAndNode[i].nodePosition,
+                                  () => _indexAndNode[i].nodePosition,
+                                  (oldValue) => null));
+                            },
+                            onTap: () {
                               setState(() {
-                                tmpLocation = details.globalPosition;
                                 _currentSelectedNode = i;
                               });
-                              Offset offset = Offset(
-                                  _indexAndNode[i].nodePosition.dx +
-                                      details.globalPosition.dx -
-                                      tmpLocation.dx,
-                                  _indexAndNode[i].nodePosition.dy +
-                                      details.globalPosition.dy -
-                                      tmpLocation.dy);
-                              setState(() {
-                                _indexAndNode[i].nodePosition = offset;
-                                tmpLocation = details.globalPosition;
-                              });
-                            }
-                          },
-                          onPanUpdate: (details) {
-                            if (details.globalPosition.dx <
-                                MediaQuery.of(context).size.width - 350) {
-                              Offset offset = Offset(
-                                  _indexAndNode[i].nodePosition.dx +
-                                      details.globalPosition.dx -
-                                      tmpLocation.dx,
-                                  _indexAndNode[i].nodePosition.dy +
-                                      details.globalPosition.dy -
-                                      tmpLocation.dy);
-                              setState(() {
-                                _indexAndNode[i].nodePosition = offset;
-                                tmpLocation = details.globalPosition;
-                              });
-                            }
-                          },
-                          onTap: () {
-                            setState(() {
-                              _currentSelectedNode = i;
-                            });
-                          },
-                          child: Card(
-                            elevation: 3,
-                            color: const Color(0xff403F40),
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                width: _currentSelectedNode != null
-                                    ? _currentSelectedNode == i ? 2 : 0
-                                    : 0,
-                                color: Colors.orange,
-                              ),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Container(
-                              height: _indexAndNode[i].height,
-                              width: _indexAndNode[i].width,
-                              decoration: BoxDecoration(
-                                color: const Color(0xff403F40),
+                            },
+                            child: Card(
+                              elevation: 3,
+                              color: const Color(0xff403F40),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: _currentSelectedNode != null
+                                      ? _currentSelectedNode == i ? 2 : 0
+                                      : 0,
+                                  color: Colors.orange,
+                                ),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: Stack(
-                                children: <Widget>[
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: _indexAndNode[i].titleColor,
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: const Radius.circular(5),
-                                        topRight: const Radius.circular(5),
+                              child: Container(
+                                height: _indexAndNode[i].height,
+                                width: _indexAndNode[i].width,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff403F40),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Stack(
+                                  children: <Widget>[
+                                    Tooltip(
+                                      message: _indexAndNode[i].description,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: _indexAndNode[i].titleColor,
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: const Radius.circular(5),
+                                            topRight: const Radius.circular(5),
+                                          ),
+                                        ),
+                                        width: _indexAndNode[i].width,
+                                        height: 30,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            const Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Icon(
+                                                FontAwesomeIcons.slidersH,
+                                                color: Colors.grey,
+                                                size: 15,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 3),
+                                              child: Text(
+                                                _indexAndNode[i].name.length <=
+                                                        18
+                                                    ? _indexAndNode[i].name
+                                                    : _indexAndNode[i]
+                                                            .name
+                                                            .substring(0, 18) +
+                                                        '...',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                    width: _indexAndNode[i].width,
-                                    height: 30,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        const Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 5),
-                                          child: Icon(
-                                            FontAwesomeIcons.slidersH,
-                                            color: Colors.grey,
-                                            size: 15,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 3),
-                                          child: Text(
-                                            _indexAndNode[i].name.length <= 18
-                                                ? _indexAndNode[i].name
-                                                : _indexAndNode[i]
-                                                        .name
-                                                        .substring(0, 18) +
-                                                    '...',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  for (var j = 1;
-                                      j <= _indexAndNode[i].noOfInputs;
-                                      j++)
-                                    Positioned(
-                                      top: 30.0 * j + 10,
-                                      left: 3,
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Card(
-                                            elevation: 2,
-                                            color: const Color(0xff403F40),
-                                            shape: const CircleBorder(),
-                                            child: Container(
-                                              height: 18,
-                                              width: 18,
-                                              decoration: const BoxDecoration(
+                                    for (var j = 1;
+                                        j <= _indexAndNode[i].noOfInputs;
+                                        j++)
+                                      Positioned(
+                                        top: 30.0 * j + 10,
+                                        left: 3,
+                                        child: DefaultCursor(
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Card(
+                                                elevation: 2,
                                                 color: const Color(0xff403F40),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: Center(
+                                                shape: const CircleBorder(),
                                                 child: Container(
-                                                  height: 14,
-                                                  width: 14,
+                                                  height: 18,
+                                                  width: 18,
                                                   decoration:
                                                       const BoxDecoration(
-                                                    color: Colors.black45,
+                                                    color:
+                                                        const Color(0xff403F40),
                                                     shape: BoxShape.circle,
                                                   ),
                                                   child: Center(
+                                                    child: Container(
+                                                      height: 14,
+                                                      width: 14,
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        color: Colors.black45,
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Center(
+                                                        child: CrosshairCursor(
+                                                          child:
+                                                              GestureDetector(
+                                                            onPanDown:
+                                                                (details) {
+                                                              if (details
+                                                                      .globalPosition
+                                                                      .dx <
+                                                                  MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width -
+                                                                      350) {
+                                                                setState(() {
+                                                                  _currentSelectedNode =
+                                                                      i;
+                                                                  _initialNodeOffset =
+                                                                      details
+                                                                          .globalPosition;
+                                                                });
+                                                              }
+                                                            },
+                                                            onPanEnd:
+                                                                (details) {
+                                                              setState(() {
+                                                                _initialNodeOffset =
+                                                                    null;
+                                                                _finalNodeOffset =
+                                                                    null;
+                                                              });
+                                                            },
+                                                            onPanUpdate:
+                                                                (details) {
+                                                              if (details
+                                                                      .globalPosition
+                                                                      .dx <
+                                                                  MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width -
+                                                                      350) {
+                                                                setState(() {
+                                                                  _finalNodeOffset =
+                                                                      details
+                                                                          .globalPosition;
+                                                                });
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              height: 10,
+                                                              width: 10,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: _indexAndNode[
+                                                                        i]
+                                                                    .titleColor,
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 5),
+                                              InkWell(
+                                                child: Text(
+                                                  j == 1
+                                                      ? _indexAndNode[i]
+                                                                  .noOfInputs ==
+                                                              1
+                                                          ? 'Input'
+                                                          : 'Input 1'
+                                                      : 'Input 2',
+                                                  style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    for (var k = 1;
+                                        k <= _indexAndNode[i].noOfOutputs;
+                                        k++)
+                                      Positioned(
+                                        top: 30.0 * k + 10,
+                                        right: 3,
+                                        child: DefaultCursor(
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text(
+                                                'Output',
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.white),
+                                              ),
+                                              const SizedBox(width: 5),
+                                              Card(
+                                                elevation: 2,
+                                                color: const Color(0xff403F40),
+                                                shape: const CircleBorder(),
+                                                child: Container(
+                                                  height: 18,
+                                                  width: 18,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    color:
+                                                        const Color(0xff403F40),
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: CrosshairCursor(
                                                     child: GestureDetector(
                                                       onPanDown: (details) {
                                                         if (details
@@ -353,137 +488,43 @@ class _MyHomePageState extends State<MyHomePage> {
                                                           });
                                                         }
                                                       },
-                                                      child: Container(
-                                                        height: 10,
-                                                        width: 10,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              _indexAndNode[i]
-                                                                  .titleColor,
-                                                          shape:
-                                                              BoxShape.circle,
+                                                      child: Center(
+                                                        child: Container(
+                                                          height: 14,
+                                                          width: 14,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            color:
+                                                                Colors.black45,
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: Center(
+                                                            child: Container(
+                                                              height: 10,
+                                                              width: 10,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: _indexAndNode[
+                                                                        i]
+                                                                    .titleColor,
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                          const SizedBox(width: 5),
-                                          InkWell(
-                                            child: Text(
-                                              j == 1
-                                                  ? _indexAndNode[i]
-                                                              .noOfInputs ==
-                                                          1
-                                                      ? 'Input'
-                                                      : 'Input 1'
-                                                  : 'Input 2',
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  for (var k = 1;
-                                      k <= _indexAndNode[i].noOfOutputs;
-                                      k++)
-                                    Positioned(
-                                      top: 30.0 * k + 10,
-                                      right: 3,
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text(
-                                            'Output',
-                                            style: const TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.white),
-                                          ),
-                                          const SizedBox(width: 5),
-                                          Card(
-                                            elevation: 2,
-                                            color: const Color(0xff403F40),
-                                            shape: const CircleBorder(),
-                                            child: Container(
-                                              height: 18,
-                                              width: 18,
-                                              decoration: const BoxDecoration(
-                                                color: const Color(0xff403F40),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: GestureDetector(
-                                                onPanDown: (details) {
-                                                  if (details
-                                                          .globalPosition.dx <
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width -
-                                                          350) {
-                                                    setState(() {
-                                                      _currentSelectedNode = i;
-                                                      _initialNodeOffset =
-                                                          details
-                                                              .globalPosition;
-                                                    });
-                                                  }
-                                                },
-                                                onPanEnd: (details) {
-                                                  setState(() {
-                                                    _initialNodeOffset = null;
-                                                    _finalNodeOffset = null;
-                                                  });
-                                                },
-                                                onPanUpdate: (details) {
-                                                  if (details
-                                                          .globalPosition.dx <
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width -
-                                                          350) {
-                                                    setState(() {
-                                                      _finalNodeOffset = details
-                                                          .globalPosition;
-                                                    });
-                                                  }
-                                                },
-                                                child: Center(
-                                                  child: Container(
-                                                    height: 14,
-                                                    width: 14,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color: Colors.black45,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Center(
-                                                      child: Container(
-                                                        height: 10,
-                                                        width: 10,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              _indexAndNode[i]
-                                                                  .titleColor,
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
