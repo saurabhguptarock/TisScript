@@ -17,10 +17,10 @@
     <title>Tis Script</title>
     <link rel="manifest" href="manifest.json" />
   </head>
-  <body oncontextmenu="return false;">
+  <body id="app-container" oncontextmenu="return false;">
     <script>
       if ("serviceWorker" in navigator) {
-        window.addEventListener("load", function() {
+        window.addEventListener("load", function () {
           navigator.serviceWorker.register("flutter_service_worker.js");
         });
       }
