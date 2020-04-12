@@ -45,7 +45,8 @@ class Node {
 class Output {
   final bool hasError;
   final dynamic output;
+  final String message;
   final NodeCategory outputType;
 
-  Output({this.hasError, this.output, this.outputType});
+  Output({this.hasError, this.output, this.outputType, this.message});
 }

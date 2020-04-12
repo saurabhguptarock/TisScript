@@ -750,7 +750,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                         ),
                                                         child: Center(
                                                           child: Text(
-                                                            'Some error Occured',
+                                                            '${output.message}',
                                                             style: TextStyle(
                                                               fontSize: 20,
                                                               fontWeight:
