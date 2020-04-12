@@ -7,8 +7,6 @@ import 'package:tis_script/model/model.dart';
 import 'package:tis_script/nodes.dart';
 import 'package:tis_script/shared/shared.dart';
 import 'package:recase/recase.dart';
-import 'package:stagexl/stagexl.dart' as stagexl;
-import 'package:undo/undo.dart';
 
 void main() {
   runApp(MyApp());
@@ -51,7 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
   static Offset _finalNodeOffset;
   static Offset tmpLocation;
   static final FocusNode _focusNode = FocusNode();
-  static final ChangeStack changes = ChangeStack();
 
 // TODO: Fix adding only single node of each type.
   @override
@@ -217,12 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 });
                               }
                             },
-                            onPanEnd: (details) {
-                              changes.add(Change.property(
-                                  _indexAndNode[i].nodePosition,
-                                  () => _indexAndNode[i].nodePosition,
-                                  (oldValue) => null));
-                            },
+                            onPanEnd: (details) {},
                             onTap: () {
                               setState(() {
                                 _currentSelectedNode = i;
