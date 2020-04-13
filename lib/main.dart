@@ -12,6 +12,7 @@ void main() {
   runApp(MyApp());
 }
 
+// TODO: Add feature to add custom node
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
