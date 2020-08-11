@@ -59,10 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       focusNode: _focusNode,
       onKey: (event) {
         if (event.runtimeType == RawKeyDownEvent) {
-          if (event.logicalKey == LogicalKeyboardKey.controlLeft) {
-            _focusNode.unfocus();
-            print('z');
-          } else if (event.logicalKey == LogicalKeyboardKey.delete) {
+          if (event.logicalKey == LogicalKeyboardKey.delete) {
             _focusNode.unfocus();
             // TODO: Fix deleting node functionality.
             // if (_currentSelectedNode != null) {
@@ -692,10 +689,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                                             Color(0xff1E1F1C),
                                                         shape:
                                                             RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            3)),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(3),
+                                                        ),
                                                         child: Container(
                                                           height: 50,
                                                           width: 150,
@@ -740,10 +737,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                                             Color(0xffd8000c),
                                                         shape:
                                                             RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            3)),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(3),
+                                                        ),
                                                         child: Container(
                                                           height: 50,
                                                           width: 250,
@@ -897,23 +894,40 @@ class _MyHomePageState extends State<MyHomePage> {
                             Padding(
                               padding: EdgeInsets.only(left: 10, top: 20),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  const Icon(
-                                    FontAwesomeIcons.slidersH,
-                                    color: Colors.grey,
-                                    size: 17,
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        FontAwesomeIcons.slidersH,
+                                        color: Colors.grey,
+                                        size: 17,
+                                      ),
+                                      const SizedBox(width: 20),
+                                      Text(
+                                        _indexAndNode[_currentSelectedNode]
+                                            .category
+                                            .toString()
+                                            .substring(13)
+                                            .titleCase,
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(width: 20),
-                                  Text(
-                                    _indexAndNode[_currentSelectedNode]
-                                        .category
-                                        .toString()
-                                        .substring(13)
-                                        .titleCase,
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                    ),
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        '(Press Enter Key to submit input)',
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 15),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -943,7 +957,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       child: Stack(
                                         children: [
                                           Positioned(
-                                            top: -10,
+                                            top: 7,
                                             left: 10,
                                             right: 10,
                                             child: TextFormField(
@@ -1019,7 +1033,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         child: Stack(
                                           children: [
                                             Positioned(
-                                              top: -10,
+                                              top: 7,
                                               left: 10,
                                               right: 10,
                                               child: TextFormField(
@@ -1043,41 +1057,44 @@ class _MyHomePageState extends State<MyHomePage> {
                                                             .input['Second']
                                                             .toString(),
                                                 cursorColor: Colors.white,
-                                                decoration: InputDecoration.collapsed(
-                                                    border: InputBorder.none,
-                                                    hintStyle: const TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.white,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .none),
-                                                    hintText:
-                                                        'Enter a ${_indexAndNode[_currentSelectedNode].category.toString().substring(13)}'),
+                                                decoration:
+                                                    InputDecoration.collapsed(
+                                                  border: InputBorder.none,
+                                                  hintStyle: const TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.white,
+                                                      decoration:
+                                                          TextDecoration.none),
+                                                  hintText:
+                                                      'Enter a ${_indexAndNode[_currentSelectedNode].category.toString().substring(13)}',
+                                                ),
                                                 onFieldSubmitted: (s) {
                                                   if (i == 1) {
-                                                    _indexAndNode[
-                                                            _currentSelectedNode]
-                                                        .input = Map.fromEntries([
-                                                      MapEntry('First', s),
-                                                      MapEntry(
-                                                          'Second',
-                                                          _indexAndNode[
-                                                                  _currentSelectedNode]
-                                                              .input['Second'])
-                                                    ]);
-                                                    setState(() {});
+                                                    setState(() {
+                                                      _indexAndNode[
+                                                              _currentSelectedNode]
+                                                          .input = Map.fromEntries([
+                                                        MapEntry('First', s),
+                                                        MapEntry(
+                                                            'Second',
+                                                            _indexAndNode[
+                                                                    _currentSelectedNode]
+                                                                .input['Second'])
+                                                      ]);
+                                                    });
                                                   } else {
-                                                    _indexAndNode[
-                                                            _currentSelectedNode]
-                                                        .input = Map.fromEntries([
-                                                      MapEntry(
-                                                          'First',
-                                                          _indexAndNode[
-                                                                  _currentSelectedNode]
-                                                              .input['First']),
-                                                      MapEntry('Second', s)
-                                                    ]);
-                                                    setState(() {});
+                                                    setState(() {
+                                                      _indexAndNode[
+                                                              _currentSelectedNode]
+                                                          .input = Map.fromEntries([
+                                                        MapEntry(
+                                                            'First',
+                                                            _indexAndNode[
+                                                                    _currentSelectedNode]
+                                                                .input['First']),
+                                                        MapEntry('Second', s)
+                                                      ]);
+                                                    });
                                                   }
                                                 },
                                                 style: const TextStyle(
