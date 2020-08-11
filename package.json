@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "deploy": "flutter build web && gh-pages -d build/web"
+    "deploy": "flutter build web --release --dart-define=FLUTTER_WEB_USE_SKIA=true && gh-pages -d build/web"
   },
   "repository": {
     "type": "git",
