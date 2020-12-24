@@ -1,14 +1,13 @@
 {
   "name": "tis-script",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "A visual node based programming language for Dart User.",
-  "main": "index.js",
   "directories": {
     "lib": "lib",
     "test": "test"
   },
   "scripts": {
-    "deploy": "flutter build web --dart-define=FLUTTER_WEB_USE_SKIA=true && gh-pages -d build/web"
+    "deploy": "flutter build web --web-renderer canvaskit --release && gh-pages -d build/web"
   },
   "repository": {
     "type": "git",

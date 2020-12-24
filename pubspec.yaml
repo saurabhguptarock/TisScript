@@ -1,7 +1,7 @@
 name: tis_script
 description: A visual node based programming language for Dart User.
 
-version: 2.5.0
+version: 2.6.0
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
