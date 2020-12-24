@@ -16,15 +16,14 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BotToastInit(
-      child: MaterialApp(
-        title: 'Tis Script',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyHomePage(),
-        navigatorObservers: [BotToastNavigatorObserver()],
+    return MaterialApp(
+      title: 'Tis Script',
+      builder: BotToastInit(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: MyHomePage(),
+      navigatorObservers: [BotToastNavigatorObserver()],
     );
   }
 }
@@ -225,7 +224,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(
                                     width: _currentSelectedNode != null
-                                        ? _currentSelectedNode == i ? 2 : 0
+                                        ? _currentSelectedNode == i
+                                            ? 2
+                                            : 0
                                         : 0,
                                     color: Colors.orange,
                                   ),
